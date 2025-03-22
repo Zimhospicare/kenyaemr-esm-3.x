@@ -118,7 +118,7 @@ jobs:
           uses: aurelien-baudet/workflow-dispatch@v2
           with:
             workflow: KenyaEMR CI
-            repo: palladiumkenya/openmrs-config-kenyaemr
+            repo: Zimhospicare/openmrs-config-kenyaemr
             token: ${{ secrets.PERSONAL_TOKENS }}
             wait-for-completion: false 
 
