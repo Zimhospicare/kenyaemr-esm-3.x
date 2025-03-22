@@ -57,7 +57,7 @@ import DeceasedDetailsView from './deceased-panel/tabs/tabs.component';
 import DeceasedPanelDashboardLink from './deceased-panel/dashboard-link/dashboard-link.component';
 import EndRelationshipWorkspace from './case-management/workspace/case-management-workspace.component';
 
-const moduleName = '@kenyaemr/esm-patient-clinical-view-app';
+const moduleName = '@zimhospicare/esm-patient-clinical-view-app';
 
 const options = {
   featureName: 'patient-clinical-view-app',

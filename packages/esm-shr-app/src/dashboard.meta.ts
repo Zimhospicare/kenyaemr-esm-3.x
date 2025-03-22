@@ -10,7 +10,7 @@ export const referralDashboardMeta = {
   columns: 1,
   title: 'Referrals',
   path: 'referral',
-  moduleName: '@kenyaemr/esm-shr-app',
+  moduleName: '@zimhospicare/esm-shr-app',
   config: {},
 };
 

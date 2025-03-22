@@ -61,7 +61,7 @@ const PatientAdditionalInfoForm: React.FC<PatientAdditionalInfoFormProps> = ({ c
   const { cashPoints, isLoading: isLoadingCashPoints, error: cashError } = useCashPoint();
   const cashPointUuid = cashPoints?.[0]?.uuid ?? '';
 
-  const { insuranceSchemes } = useConfig({ externalModuleName: '@kenyaemr/esm-billing-app' });
+  const { insuranceSchemes } = useConfig({ externalModuleName: '@zimhospicare/esm-billing-app' });
 
   const { paymentModes, isLoading: isLoadingPaymentModes } = usePaymentModes();
   const {

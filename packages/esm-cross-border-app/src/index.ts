@@ -8,7 +8,7 @@ import Summary from './components/summary/summary.component';
 import FormEntryWorkspace from './components/form-entry/form-entry.component';
 import PatientSearch from './components/form-entry/patient-search.component';
 
-const moduleName = '@kenyaemr/esm-cross-border-app';
+const moduleName = '@zimhospicare/esm-cross-border-app';
 
 const options = {
   featureName: 'cross-border',

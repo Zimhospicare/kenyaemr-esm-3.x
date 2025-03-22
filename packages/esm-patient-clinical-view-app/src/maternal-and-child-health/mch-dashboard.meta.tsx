@@ -3,7 +3,7 @@ export const antenatalDashboardMeta = {
   columns: 1,
   title: 'Antenatal Care',
   path: 'antenatal-care-dashboard',
-  moduleName: '@kenyaemr/esm-patient-clinical-view-app',
+  moduleName: '@zimhospicare/esm-patient-clinical-view-app',
   config: {},
 };
 
@@ -12,7 +12,7 @@ export const postnatalDashboardMeta = {
   columns: 1,
   title: 'Postnatal Care',
   path: 'postnatal-care-dashboard',
-  moduleName: '@kenyaemr/esm-patient-clinical-view-app',
+  moduleName: '@zimhospicare/esm-patient-clinical-view-app',
   config: {},
 };
 
@@ -21,7 +21,7 @@ export const labourAndDeliveryDashboardMeta = {
   columns: 1,
   title: 'Labour & Delivery',
   path: 'labour-and-delivery-dashboard',
-  moduleName: '@kenyaemr/esm-patient-clinical-view-app',
+  moduleName: '@zimhospicare/esm-patient-clinical-view-app',
   config: {},
 };
 

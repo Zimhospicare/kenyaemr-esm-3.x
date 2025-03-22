@@ -1,4 +1,4 @@
-export const moduleName = '@kenyaemr/esm-facility-dashboard-app';
+export const moduleName = '@zimhospicare/esm-facility-dashboard-app';
 export const etlBasePath = `${window.spaBase}`;
 
 export const today = () => {

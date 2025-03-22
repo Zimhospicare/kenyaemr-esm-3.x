@@ -1,4 +1,4 @@
-export const moduleName = '@kenyaemr/esm-admin-app';
+export const moduleName = '@zimhospicare/esm-admin-app';
 export const etlBasePath = `${window.spaBase}`;
 
 export const today = () => {

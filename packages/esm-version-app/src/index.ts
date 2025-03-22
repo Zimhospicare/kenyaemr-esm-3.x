@@ -16,7 +16,7 @@ import { configSchema } from './config-schema';
 import rootComponent from './root.component';
 import HomeRoot from './app-navigation/home-root.component';
 
-const moduleName = '@kenyaemr/esm-version-app';
+const moduleName = '@zimhospicare/esm-version-app';
 
 const options = {
   featureName: 'esm-version-app',

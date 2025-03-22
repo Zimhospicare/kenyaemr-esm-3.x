@@ -16,10 +16,10 @@ import SHRSummaryPanel from './shr-summary/shr-summary.component';
 import shrPatientSummaryComponent from './shrpatient-summary/shrpatient-summary.component';
 import FacilityRefferalForm from './workspace/referrals.workspace.component';
 
-const moduleName = '@kenyaemr/esm-shr-app';
+const moduleName = '@zimhospicare/esm-shr-app';
 
 const options = {
-  featureName: '@kenyaemr/esm-shr-app',
+  featureName: '@zimhospicare/esm-shr-app',
   moduleName,
 };
 

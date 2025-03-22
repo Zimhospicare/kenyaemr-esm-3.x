@@ -43,7 +43,7 @@ import { ClockOut } from './payment-points/payment-point/clock-out.modal';
 import RequirePaymentModal from './prompt-payment/prompt-payment-modal.component';
 import rootComponent from './root.component';
 
-const moduleName = '@kenyaemr/esm-billing-app';
+const moduleName = '@zimhospicare/esm-billing-app';
 
 const options = {
   featureName: 'billing',

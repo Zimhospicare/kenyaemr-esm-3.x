@@ -4,7 +4,7 @@ import { configSchema } from './config-schema';
 import { createDashboardGroup } from '@openmrs/esm-patient-common-lib';
 import { createLeftPanelLink } from './nav/left-panel-link.component';
 
-const moduleName = '@kenyaemr/esm-lab-manifest-app';
+const moduleName = '@zimhospicare/esm-lab-manifest-app';
 
 const options = {
   featureName: 'esm-lab-manifest-app',

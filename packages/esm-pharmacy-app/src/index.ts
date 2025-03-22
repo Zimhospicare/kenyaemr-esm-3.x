@@ -1,7 +1,7 @@
 import { getAsyncLifecycle, defineConfigSchema, getSyncLifecycle, registerBreadcrumbs } from '@openmrs/esm-framework';
 import { configSchema } from './config-schema';
 import { createLeftPanelLink } from './pharmacy-left-panel/pharmacy-left-panel-link.component';
-const moduleName = '@kenyaemr/esm-pharmacy-app';
+const moduleName = '@zimhospicare/esm-pharmacy-app';
 
 const options = {
   featureName: 'esm-pharmacy-app',

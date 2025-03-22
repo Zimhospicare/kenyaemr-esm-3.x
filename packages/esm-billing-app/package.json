@@ -1,8 +1,8 @@
 {
-  "name": "@kenyaemr/esm-billing-app",
+  "name": "@zimhospicare/esm-billing-app",
   "version": "5.4.0",
   "description": "Billing app for KenyaEMR",
-  "browser": "dist/kenyaemr-esm-billing-app.js",
+  "browser": "dist/zimhospicare-esm-billing-app.js",
   "main": "src/index.ts",
   "source": true,
   "license": "MPL-2.0",

@@ -3,14 +3,14 @@ export const htsDashboardMeta = {
   columns: 1,
   title: 'HIV Testing Services',
   path: 'hts-dashboard',
-  moduleName: '@kenyaemr/esm-patient-clinical-view-app',
+  moduleName: '@zimhospicare/esm-patient-clinical-view-app',
 };
 export const defaulterTracingDashboardMeta = {
   slot: 'patient-chart-defaulter-tracing-dashboard-slot',
   columns: 1,
   title: 'Defaulter Tracing',
   path: 'defaulter-tracing-dashboard',
-  moduleName: '@kenyaemr/esm-patient-clinical-view-app',
+  moduleName: '@zimhospicare/esm-patient-clinical-view-app',
 };
 
 export const hivCareAndTreatmentNavGroup = {

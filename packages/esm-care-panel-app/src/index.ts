@@ -12,7 +12,7 @@ import PatientDiagnoses from './dispensing-patient-details/diagnoses.component';
 import PatientConditions from './dispensing-patient-details/conditions.component';
 import DispensingPatientVitals from './dispensing-patient-details/patient-vitals.component';
 
-const moduleName = '@kenyaemr/esm-care-panel-app';
+const moduleName = '@zimhospicare/esm-care-panel-app';
 
 const options = {
   featureName: 'patient-care-panels',
