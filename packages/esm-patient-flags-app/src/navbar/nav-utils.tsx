@@ -38,11 +38,11 @@ export const useModuleLinks = () => {
       url: `${openmrsSpaBase}about`,
       icon: <VolumeFileStorage size={24} />,
     },
-    {
-      label: 'KenyaEMR Home',
-      url: `/openmrs/kenyaemr/userHome.page?`,
-      icon: <Home size={24} />,
-    },
+    // {
+    //   label: 'KenyaEMR Home',
+    //   url: `/openmrs/kenyaemr/userHome.page?`,
+    //   icon: <Home size={24} />,
+    // },
     {
       label: 'Facility Dashboard ',
       url: `${openmrsSpaBase}facility-dashboard`,
@@ -62,7 +62,7 @@ export const useModuleLinks = () => {
     },
     {
       label: 'Legacy Admin ',
-      url: `/openmrs/index.htm`,
+      url: `/openmrs/admin/index.htm`,
       icon: <User size={24} />,
       privilege: 'coreapps.systemAdministration',
     },

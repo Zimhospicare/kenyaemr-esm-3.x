@@ -19,18 +19,12 @@ const About: React.FC<AboutProps> = () => {
         <div className={container}>
           <div className={title}>
             <div>
-              <h3>Government of Kenya</h3>
-              <h4>Ministry of Health</h4>
+              <h3>ZimHospitalCare</h3>
             </div>
-            <img
-              src="/openmrs/ms/uiframework/resource/kenyaemr/images/logos/moh.png"
-              alt="court_of_arms"
-              width="50"
-              height="50"
-            />
+            <img src="zim_logo.png" alt="court_of_arms" width="50" height="50" />
           </div>
           <div className={aboutBody}>
-            <p>KenyaEMR Version</p>
+            <p>ZimHospitalCare Version</p>
             <p>{`v${kenyaEMR?.version}`}</p>
             <p>SPA Version</p>
             <p>{`v${VERSION.version}`}</p>
