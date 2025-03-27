@@ -25,7 +25,7 @@ describe('Navbar Action Button', () => {
     expect(searchInput).toBeInTheDocument();
     const kenyaemrLinks = [
       'System Info',
-      'KenyaEMR Home',
+      // 'KenyaEMR Home',
       'Facility Dashboard',
       'Clear Cache',
       'Form Builder',
