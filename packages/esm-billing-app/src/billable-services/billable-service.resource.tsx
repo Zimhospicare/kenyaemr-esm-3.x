@@ -14,7 +14,7 @@ export const useBillableServices = () => {
 
 export function useServiceTypes() {
   // service concept UUID containing all available services e.g lab, pharmacy, surgical etc
-  const serviceConceptUuid = `d7bd4cc0-90b1-4f22-90f2-ab7fde936727`;
+  const serviceConceptUuid = `a8f3f64a-11d5-4a09-b0fb-c8118fa349f3`;
   const url = `/ws/rest/v1/concept/${serviceConceptUuid}?v=custom:(setMembers:(uuid,display,id))`;
   const { data, error, isLoading } = useSWR<{ data: ServiceTypesResponse }>(url, openmrsFetch, {});
   return { serviceTypes: data?.data.setMembers ?? [], error, isLoading };
