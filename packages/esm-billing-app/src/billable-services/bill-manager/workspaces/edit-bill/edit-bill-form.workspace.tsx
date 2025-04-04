@@ -95,7 +95,7 @@ export const EditBillForm: React.FC<EditBillFormProps> = ({
 
   const formattedPrice = Intl.NumberFormat('en-US', {
     style: 'currency',
-    currency: 'KES',
+    currency: 'USD',
   }).format(lineItem.price);
 
   const subtitleText = `${t('currentPriceAndQuantity', 'Current price and quantity')}: ${t(

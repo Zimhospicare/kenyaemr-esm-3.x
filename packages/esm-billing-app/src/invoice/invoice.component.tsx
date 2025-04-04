@@ -42,7 +42,8 @@ const Invoice: React.FC = () => {
   const [isPrinting, setIsPrinting] = useState(false);
   const { patient, isLoading: isLoadingPatient, error: patientError } = usePatient(patientUuid);
   const { bill, isLoading: isLoadingBill, error: billingError } = useBill(billUuid);
-  usePaymentsReconciler(billUuid);
+  /** To..do when intergrating Mobile money */
+  // usePaymentsReconciler(billUuid);
   const {
     currentVisit,
     isLoading: isVisitLoading,
