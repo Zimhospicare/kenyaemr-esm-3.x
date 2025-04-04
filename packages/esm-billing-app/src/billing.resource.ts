@@ -169,7 +169,7 @@ export const processBillPayment = (payload, billUuid: string) => {
 
 export function useDefaultFacility() {
   const { authenticated } = useSession();
-  const url = '${restBaseUrl}/kenyaemr/default-facility';
+  const url = `${restBaseUrl}/kenyaemr/default-facility`;
   const { data, isLoading } = useSWR<{ data: FacilityDetail }>(authenticated ? url : null, openmrsFetch, {});
   return { data: data?.data, isLoading: isLoading };
 }

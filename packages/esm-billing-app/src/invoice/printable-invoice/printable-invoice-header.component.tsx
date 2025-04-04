@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { PatientDetails } from '../../types';
 import styles from './printable-invoice-header.scss';
 import { useConfig } from '@openmrs/esm-framework';
@@ -12,7 +12,7 @@ interface PrintableInvoiceHeaderProps {
 
 const PrintableInvoiceHeader: React.FC<PrintableInvoiceHeaderProps> = ({ patientDetails, facilityInfo }) => {
   const { t } = useTranslation();
-  const { logo } = useConfig({ externalModuleName: '@kenyaemr/esm-login-app' });
+  const [logo, setLogo] = useState({ name: 'ZimHospicare', src: 'hospicare_emr_logo.png', alt: 'logo' });
 
   return (
     <div className={styles.container}>
@@ -53,7 +53,6 @@ const PrintableInvoiceHeader: React.FC<PrintableInvoiceHeaderProps> = ({ patient
 
         <div className={styles.facilityDetails}>
           <p className={styles.facilityName}>{facilityInfo?.display}</p>
-          <p className={styles.itemLabel}>Kenya</p>
         </div>
       </div>
     </div>
