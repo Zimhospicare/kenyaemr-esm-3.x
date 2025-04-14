@@ -198,7 +198,7 @@ const Invoice: React.FC = () => {
           renderIcon={Wallet}
           iconDescription="Add"
           tooltipPosition="left">
-          {t('mpesaPayment', 'MPESA Payment')}
+          {t('echoCashPayment', 'Echo Cash Payment')}
         </Button>
         {isProcessClaimsFormEnabled && (
           <Button

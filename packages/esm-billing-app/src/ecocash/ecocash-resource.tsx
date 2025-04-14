@@ -14,9 +14,9 @@ export const initiateStkPush = async (
     Amount: string;
   },
   setNotification: (notification: { type: 'error' | 'success'; message: string }) => void,
-  MPESA_PAYMENT_API_BASE_URL: string,
+  echoCash_PAYMENT_API_BASE_URL: string,
   isPDSLFacility: boolean,
-): Promise<string> => {
+): Promise<boolean> => {
   if (isPDSLFacility) {
     const billReference = payload.AccountReference.split('#').at(-1);
     const stkPushURL = `${restBaseUrl}/rmsdataexchange/api/rmsstkpush`;
@@ -34,9 +34,8 @@ export const initiateStkPush = async (
     });
 
     if (stkPushResponse.ok) {
-      const response: { requestId: string } = await stkPushResponse.json();
       setNotification({ message: 'STK Push sent successfully', type: 'success' });
-      return response.requestId;
+      return true;
     }
 
     if (!stkPushResponse.ok) {
@@ -45,33 +44,35 @@ export const initiateStkPush = async (
         type: 'error',
       });
 
-      return;
+      return false;
     }
   } else {
     try {
-      const url = `${MPESA_PAYMENT_API_BASE_URL}/api/mpesa/stk-push`;
+      const url = `${echoCash_PAYMENT_API_BASE_URL}/api/ecocash_pay/api/v2/payment/instant/c2b/sandbox`;
 
       const res = await fetch(url, {
         method: 'POST',
         headers: {
+          'X-API-KEY': 'API_KEY',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          phoneNumber: payload.PhoneNumber,
+          customerMsisdn: payload.PhoneNumber,
           amount: payload.Amount,
-          accountReference: payload.AccountReference,
+          reason: 'Payment',
+          currency: 'USD',
+          sourceReference: payload.AccountReference,
         }),
       });
 
       if (res.ok) {
-        const response: { requestId: string } = await res.json();
         setNotification({ message: 'STK Push sent successfully', type: 'success' });
-        return response.requestId;
+        return true;
       }
 
       if (!res.ok && res.status === 403) {
         setNotification({
-          message: 'Health facility M-PESA data not configured.',
+          message: 'Health facility EcoCash data not configured.',
           type: 'error',
         });
 
@@ -79,11 +80,13 @@ export const initiateStkPush = async (
       }
 
       if (!res.ok) {
-        throw new Error('Unable to initiate Lipa Na Mpesa, please try again later.');
+        throw new Error('Unable to initiate Lipa Na EcoCash, please try again later.');
       }
     } catch (err) {
+      // eslint-disable-next-line no-console
+      console.log(err);
       setNotification({
-        message: 'Unable to initiate Lipa Na Mpesa, please try again later.',
+        message: 'Unable to initiate Lipa Na EcoCash, please try again later.',
         type: 'error',
       });
     }
@@ -91,34 +94,39 @@ export const initiateStkPush = async (
 };
 
 export const getRequestStatus = async (
-  requestId: string,
-  MPESA_PAYMENT_API_BASE_URL: string,
+  payload: {
+    AccountReference: string;
+    PhoneNumber: string;
+  },
+  echoCash_PAYMENT_API_BASE_URL: string,
   isPDSLFacility: boolean,
 ): Promise<{ status: RequestStatus; referenceCode?: string }> => {
   let response: Response;
 
   if (isPDSLFacility) {
     try {
-      response = await openmrsFetch(`${restBaseUrl}/rmsdataexchange/api/rmsstkcheck`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: {
-          requestId,
-        },
-      });
+      // response = await openmrsFetch(`${restBaseUrl}/rmsdataexchange/api/rmsstkcheck`, {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: {
+      //     requestId,
+      //   },
+      // });
     } catch (error) {
       throw new Error(error.message ?? error.statusText ?? 'An error occurred');
     }
   } else {
-    response = await fetch(`${MPESA_PAYMENT_API_BASE_URL}/api/mpesa/check-payment-state`, {
+    response = await fetch(`${echoCash_PAYMENT_API_BASE_URL}/api/ecocash_pay/api/v1/transaction/c2b/status/sandbox`, {
       method: 'POST',
       headers: {
+        'X-API-KEY': 'API_KEY',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        requestId,
+        sourceMobileNumber: payload.PhoneNumber,
+        sourceReference: payload.AccountReference,
       }),
     });
   }
@@ -132,9 +140,7 @@ export const getRequestStatus = async (
     throw error;
   }
 
-  const requestStatus: { status: RequestStatus; referenceCode?: string } = await response.json();
-
-  return requestStatus;
+  return await response.json();
 };
 
 export const getErrorMessage = (err: { message: string }, t) => {

@@ -158,6 +158,7 @@
   "makeclaims": "Make Claims",
   "makePreAuthRequests": "Make Pre Auth Request",
   "mpesaPayment": "MPESA Payment",
+  "echoCashPayment": "Echo Cash Payment",
   "name": "Name",
   "navigateBack": "Navigate back",
   "nextPage": "Next page",

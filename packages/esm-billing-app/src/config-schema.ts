@@ -16,6 +16,7 @@ export interface BillingConfig {
   enforceBillPayment: boolean;
   billingStatusQueryUrl: string;
   mpesaAPIBaseUrl: string;
+  echoCashAPIBaseUrl: string;
   hieBaseUrl: string;
   insuranceSchemes: Array<string>;
   shaIdentificationNumberUUID: string;
@@ -59,6 +60,11 @@ export const configSchema: ConfigSchema = {
     _type: Type.String,
     _description: 'The base url that will be used to make any backend calls related to mpesa.',
     _default: 'https://billing.kenyahmis.org',
+  },
+  echoCashAPIBaseUrl: {
+    _type: Type.String,
+    _description: 'The base url that will be used to make any backend calls related to ecocash.',
+    _default: 'https://developers.ecocash.co.zw',
   },
   hieBaseUrl: {
     _type: Type.String,

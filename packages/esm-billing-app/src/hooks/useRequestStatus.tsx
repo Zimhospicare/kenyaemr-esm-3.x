@@ -5,7 +5,7 @@ import { mutate } from 'swr';
 import { processBillPayment, usePaymentModes } from '../billing.resource';
 import { BillingConfig } from '../config-schema';
 import { extractServiceIdentifier } from '../invoice/payments/utils';
-import { getErrorMessage, getRequestStatus, readableStatusMap } from '../m-pesa/mpesa-resource';
+import { getErrorMessage, getRequestStatus, readableStatusMap } from '../ecocash/ecocash-resource';
 import { useClockInStatus } from '../payment-points/use-clock-in-status';
 import { LineItem, MappedBill, PaymentStatus, RequestStatus, Timesheet } from '../types';
 import { extractErrorMessagesFromResponse, waitForASecond } from '../utils';
@@ -86,7 +86,9 @@ export const createMobileMoneyPaymentPayload = (
 };
 
 type RequestData = {
-  requestId: string;
+  PhoneNumber: string;
+  AccountReference: string;
+  success: boolean;
   requestStatus: RequestStatus | null;
   amount: string | null;
 };
@@ -102,14 +104,19 @@ export const useRequestStatus = (
   bill: MappedBill,
 ): [RequestData, React.Dispatch<React.SetStateAction<RequestData | null>>] => {
   const { t } = useTranslation();
-  const { mpesaAPIBaseUrl, isPDSLFacility } = useConfig<BillingConfig>();
+
+  const { echoCashAPIBaseUrl, isPDSLFacility } = useConfig<BillingConfig>();
+
   const { paymentModes } = usePaymentModes();
+
   const paymentReferenceUUID = paymentModes
     .find((mode) => mode.name === 'Mobile Money')
     ?.attributeTypes.find((type) => type.description === 'Reference Number').uuid;
 
   const [requestData, setRequestData] = useState<RequestData>({
-    requestId: null,
+    PhoneNumber: null,
+    AccountReference: null,
+    success: false,
     requestStatus: null,
     amount: null,
   });
@@ -119,12 +126,12 @@ export const useRequestStatus = (
   useEffect(() => {
     let interval: NodeJS.Timeout;
 
-    if (requestData.requestId && !['COMPLETE', 'FAILED', 'NOT-FOUND'].includes(requestData.requestStatus)) {
+    if (requestData.success && !['COMPLETE', 'FAILED', 'NOT-FOUND'].includes(requestData.requestStatus)) {
       const fetchStatus = async () => {
         try {
           const { status, referenceCode } = await getRequestStatus(
-            requestData.requestId,
-            mpesaAPIBaseUrl,
+            { PhoneNumber: requestData.PhoneNumber, AccountReference: requestData.AccountReference },
+            echoCashAPIBaseUrl,
             isPDSLFacility,
           );
           if (status === 'COMPLETE') {
@@ -195,11 +202,11 @@ export const useRequestStatus = (
   }, [
     bill,
     closeModal,
-    mpesaAPIBaseUrl,
+    echoCashAPIBaseUrl,
     paymentModes,
     paymentReferenceUUID,
     requestData.amount,
-    requestData.requestId,
+    requestData.success,
     requestData.requestStatus,
     setNotification,
     t,

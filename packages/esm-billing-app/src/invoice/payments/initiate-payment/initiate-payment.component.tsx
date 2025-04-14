@@ -19,9 +19,9 @@ import { BillingConfig } from '../../../config-schema';
 import { useSystemSetting } from '../../../hooks/getMflCode';
 import { usePatientAttributes } from '../../../hooks/usePatientAttributes';
 import { useRequestStatus } from '../../../hooks/useRequestStatus';
-import { initiateStkPush } from '../../../m-pesa/mpesa-resource';
+import { initiateStkPush } from '../../../ecocash/ecocash-resource';
 import { MappedBill } from '../../../types';
-import { formatKenyanPhoneNumber } from '../utils';
+import { formatZimbabwePhoneNumber } from '../utils';
 import styles from './initiate-payment.scss';
 
 const initiatePaymentSchema = z.object({
@@ -42,7 +42,7 @@ export interface InitiatePaymentDialogProps {
 const InitiatePaymentDialog: React.FC<InitiatePaymentDialogProps> = ({ closeModal, bill }) => {
   const { t } = useTranslation();
   const { phoneNumber, isLoading: isLoadingPhoneNumber } = usePatientAttributes(bill.patientUuid);
-  const { mpesaAPIBaseUrl, isPDSLFacility } = useConfig<BillingConfig>();
+  const { echoCashAPIBaseUrl, isPDSLFacility } = useConfig<BillingConfig>();
   const { mflCodeValue } = useSystemSetting('facility.mflcode');
   const [notification, setNotification] = useState<{ type: 'error' | 'success'; message: string } | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -75,9 +75,9 @@ const InitiatePaymentDialog: React.FC<InitiatePaymentDialogProps> = ({ closeModa
   }, [watchedPhoneNumber, setValue, phoneNumber, reset]);
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
-    const phoneNumber = formatKenyanPhoneNumber(data.phoneNumber);
+    const phoneNumber = formatZimbabwePhoneNumber(data.phoneNumber);
     const amountBilled = data.billAmount;
-    const accountReference = `${mflCodeValue}#${bill.uuid}`;
+    const accountReference = `${bill.uuid}`;
 
     const payload = {
       AccountReference: accountReference,
@@ -86,8 +86,14 @@ const InitiatePaymentDialog: React.FC<InitiatePaymentDialogProps> = ({ closeModa
     };
 
     setIsLoading(true);
-    const requestId = await initiateStkPush(payload, setNotification, mpesaAPIBaseUrl, isPDSLFacility);
-    pollingTrigger({ requestId, requestStatus: 'INITIATED', amount: amountBilled });
+    const success = await initiateStkPush(payload, setNotification, echoCashAPIBaseUrl, isPDSLFacility);
+    pollingTrigger({
+      AccountReference: payload.AccountReference,
+      PhoneNumber: payload.PhoneNumber,
+      success,
+      requestStatus: 'INITIATED',
+      amount: amountBilled,
+    });
     setIsLoading(false);
   };
 
