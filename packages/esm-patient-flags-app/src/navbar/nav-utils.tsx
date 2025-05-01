@@ -109,12 +109,6 @@ export const useModuleLinks = () => {
       privilage: 'o3: View Administration Dashboard',
     },
     {
-      label: 'Cross Border',
-      url: `${openmrsSpaBase}cross-border`,
-      icon: <WatsonHealthCrossReference size={24} />,
-      privilege: 'o3: View Cross Border Dashboard',
-    },
-    {
       label: t('reports', 'Reports'),
       url: `${openmrsSpaBase}reports`,
       icon: <Report size={24} />,

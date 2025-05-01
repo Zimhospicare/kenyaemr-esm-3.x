@@ -306,7 +306,13 @@ export type QueueEntry = {
   };
 };
 
-export type RequestStatus = 'INITIATED' | 'COMPLETE' | 'FAILED' | 'NOT-FOUND';
+export type RequestStatus =
+  | 'PENDING'
+  | 'AWAITING_USER_VALIDATION'
+  | 'SUCCESS'
+  | 'COMPLETED'
+  | 'FAILED'
+  | 'USER_CANCELLED';
 
 export enum PaymentStatus {
   POSTED = 'POSTED',

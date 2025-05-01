@@ -91,7 +91,7 @@ const InitiatePaymentDialog: React.FC<InitiatePaymentDialogProps> = ({ closeModa
       AccountReference: payload.AccountReference,
       PhoneNumber: payload.PhoneNumber,
       success,
-      requestStatus: 'INITIATED',
+      requestStatus: 'SUCCESS',
       amount: amountBilled,
     });
     setIsLoading(false);
@@ -158,7 +158,7 @@ const InitiatePaymentDialog: React.FC<InitiatePaymentDialogProps> = ({ closeModa
               type="submit"
               className={styles.button}
               onClick={handleSubmit(onSubmit)}
-              disabled={!isValid || isLoading || requestStatus === 'INITIATED'}>
+              disabled={!isValid || isLoading || requestStatus === 'AWAITING_USER_VALIDATION'}>
               {isLoading ? (
                 <>
                   <Loading className={styles.button_spinner} withOverlay={false} small />{' '}

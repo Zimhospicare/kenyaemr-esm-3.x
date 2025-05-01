@@ -2,10 +2,9 @@ import { openmrsFetch, restBaseUrl } from '@openmrs/esm-framework';
 import { RequestStatus } from '../types';
 
 export const readableStatusMap = new Map<RequestStatus, string>();
-readableStatusMap.set('COMPLETE', 'Complete');
+readableStatusMap.set('COMPLETED', 'COMPLETED');
 readableStatusMap.set('FAILED', 'Failed');
-readableStatusMap.set('INITIATED', 'Waiting for user...');
-readableStatusMap.set('NOT-FOUND', 'Request not found');
+readableStatusMap.set('PENDING', 'Waiting for user...');
 
 export const initiateStkPush = async (
   payload: {
@@ -53,7 +52,7 @@ export const initiateStkPush = async (
       const res = await fetch(url, {
         method: 'POST',
         headers: {
-          'X-API-KEY': 'API_KEY',
+          'X-API-KEY': '',
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
@@ -100,7 +99,7 @@ export const getRequestStatus = async (
   },
   echoCash_PAYMENT_API_BASE_URL: string,
   isPDSLFacility: boolean,
-): Promise<{ status: RequestStatus; referenceCode?: string }> => {
+): Promise<{ status: RequestStatus; ecocashReference?: string }> => {
   let response: Response;
 
   if (isPDSLFacility) {
@@ -121,7 +120,7 @@ export const getRequestStatus = async (
     response = await fetch(`${echoCash_PAYMENT_API_BASE_URL}/api/ecocash_pay/api/v1/transaction/c2b/status/sandbox`, {
       method: 'POST',
       headers: {
-        'X-API-KEY': 'API_KEY',
+        'X-API-KEY': '',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({

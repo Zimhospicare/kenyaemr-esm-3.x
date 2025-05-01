@@ -53,7 +53,11 @@ const options = {
 export const importTranslation = require.context('../translations', false, /.json$/, 'lazy');
 
 export const billingSummaryDashboardLink = getSyncLifecycle(
-  createDashboardLink({ ...dashboardMeta, moduleName }),
+  createDashboardLink({
+    ...dashboardMeta,
+    moduleName,
+    icon: '',
+  }),
   options,
 );
 
@@ -149,6 +153,7 @@ export const benefitsPackageDashboardLink = getSyncLifecycle(
   createDashboardLink({
     ...benefitsPackageDashboardMeta,
     moduleName,
+    icon: '',
   }),
   options,
 );

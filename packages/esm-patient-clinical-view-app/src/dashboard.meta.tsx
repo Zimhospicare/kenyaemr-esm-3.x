@@ -11,6 +11,7 @@ export const mchDashboardMeta = {
   path: 'mch-dashboard',
   moduleName: '@zimhospicare/esm-patient-clinical-view-app',
   config: {},
+  icon: '',
 };
 
 export const defaulterTracingDashboardMeta = {
@@ -20,6 +21,7 @@ export const defaulterTracingDashboardMeta = {
   path: 'defaulter-tracing-dashboard',
   moduleName: '@zimhospicare/esm-patient-clinical-view-app',
   config: {},
+  icon: '',
 };
 export const inPatientDashboardMeta = {
   slot: 'patient-chart-in-patient-dashboard-slot',
@@ -28,6 +30,7 @@ export const inPatientDashboardMeta = {
   path: 'in-patient-dashboard',
   moduleName: '@zimhospicare/esm-patient-clinical-view-app',
   config: {},
+  icon: '',
 };
 
 export const htsDashboardMeta = {
@@ -37,6 +40,7 @@ export const htsDashboardMeta = {
   path: 'hts-dashboard',
   moduleName: '@zimhospicare/esm-patient-clinical-view-app',
   config: {},
+  icon: '',
 };
 
 export const familyHistoryDashboardMeta = {
@@ -46,6 +50,7 @@ export const familyHistoryDashboardMeta = {
   path: 'family-history',
   moduleName: '@zimhospicare/esm-patient-clinical-view-app',
   config: {},
+  icon: '',
 };
 
 export const contactListDashboardMeta = {
@@ -55,6 +60,7 @@ export const contactListDashboardMeta = {
   path: 'contact-list',
   moduleName: '@zimhospicare/esm-patient-clinical-view-app',
   config: {},
+  icon: '',
 };
 
 export const otherRelationshipsDashboardMeta = {
@@ -64,6 +70,7 @@ export const otherRelationshipsDashboardMeta = {
   path: 'other-relationships',
   moduleName: '@zimhospicare/esm-patient-clinical-view-app',
   config: {},
+  icon: '',
 };
 
 export const relationshipsDashboardMeta = {
@@ -73,6 +80,7 @@ export const relationshipsDashboardMeta = {
   path: 'relationships',
   moduleName: '@zimhospicare/esm-patient-clinical-view-app',
   config: {},
+  icon: '',
 };
 
 export const labourDeliveryDashboardMeta = {
@@ -82,6 +90,7 @@ export const labourDeliveryDashboardMeta = {
   path: 'labour-delivery',
   moduleName: '@zimhospicare/esm-patient-clinical-view-app',
   config: {},
+  icon: '',
 };
 export const caseManagementDashboardMeta = {
   name: 'case-management',
@@ -91,6 +100,7 @@ export const caseManagementDashboardMeta = {
   columns: 1,
   moduleName: '@zimhospicare/esm-patient-clinical-view-app',
   config: {},
+  icon: '',
 };
 export const peerCalendarDashboardMeta = {
   name: 'peer-calendar',
@@ -100,6 +110,7 @@ export const peerCalendarDashboardMeta = {
   columns: 1,
   moduleName: '@zimhospicare/esm-patient-clinical-view-app',
   config: {},
+  icon: '',
 };
 export const caseEncounterDashboardMeta = {
   slot: 'patient-chart-relationships-slot',
@@ -108,6 +119,7 @@ export const caseEncounterDashboardMeta = {
   path: 'case-management-encounters',
   moduleName: '@zimhospicare/esm-patient-clinical-view-app',
   config: {},
+  icon: '',
 };
 
 export const morgueDeceasedDetailsDashboardMeta = {
@@ -117,4 +129,5 @@ export const morgueDeceasedDetailsDashboardMeta = {
   path: 'deceased-panel',
   moduleName: '@zimhospicare/esm-patient-clinical-view-app',
   config: {},
+  icon: '',
 };

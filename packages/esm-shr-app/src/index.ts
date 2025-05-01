@@ -42,7 +42,11 @@ export const ReferralsDashboardLink = getSyncLifecycle(
 );
 
 export const shrSummaryDashboardLink = getSyncLifecycle(
-  createDashboardLink({ ...shrSummaryDashboardMeta, moduleName }),
+  createDashboardLink({
+    ...shrSummaryDashboardMeta,
+    moduleName,
+    icon: '',
+  }),
   options,
 );
 
@@ -55,6 +59,7 @@ export const referralReasonsDialogPopup = getSyncLifecycle(ReferralReasonsDialog
 
 // Dashboard links for referrals and the corresponding view in the patient chart
 export const referralWidget = getSyncLifecycle(ReferralChartView, options);
+// @ts-ignore
 export const referralLink = getSyncLifecycle(createDashboardLink(referralDashboardMeta), options);
 export const facilityRefferalForm = getSyncLifecycle(FacilityRefferalForm, options);
 

@@ -113,10 +113,12 @@ const DischargeForm: React.FC<DischargeFormProps> = ({ closeWorkspace, patientUu
           { attributeType: nextOfKinPhoneUuid, value: data.nextOfKinContact },
           { attributeType: nextOfKinAddressUuid, value: data.nextOfKinAddress },
         ];
+        /** To...do ***/
         const patientInfo: PatientInfo = {
           uuid: currentVisit.patient.uuid,
-          attributes: currentVisit?.patient?.person?.attributes || [],
+          attributes: [],
         };
+        // attributes: currentVisit?.patient?.person?.attributes || [],
 
         for (const attribute of nextOfKinAttributes) {
           await createOrUpdatePersonAttribute(patientUuid, attribute, patientInfo);
