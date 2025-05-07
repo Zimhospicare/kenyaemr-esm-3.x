@@ -163,9 +163,9 @@ const Invoice: React.FC = () => {
   const handleViewClaims = async () => {
     if (currentVisit) {
       await handleEndVisit();
-      navigate({ to: `${spaBasePath}/billing/patient/${patientUuid}/${billUuid}/claims` });
+      navigate({ to: `${spaBasePath}/billing/invoice/${patientUuid}/${billUuid}/claims` });
     } else {
-      navigate({ to: `${spaBasePath}/billing/patient/${patientUuid}/${billUuid}/claims` });
+      navigate({ to: `${spaBasePath}/billing/invoice/${patientUuid}/${billUuid}/claims` });
     }
   };
 

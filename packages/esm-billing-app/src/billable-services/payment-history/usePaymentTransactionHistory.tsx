@@ -18,6 +18,7 @@ export const usePaymentTransactionHistory = (filters: Filter) => {
   const { bills, isLoading, isValidating, error } = useBills(
     '',
     PaymentStatus.PAID,
+    'INVOICE',
     dayjs(dateRange[0]).toDate(),
     dayjs(dateRange[1]).toDate(),
   );

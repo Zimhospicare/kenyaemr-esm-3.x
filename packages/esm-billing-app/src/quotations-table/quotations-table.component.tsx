@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import {
   DataTable,
   DataTableSkeleton,
-  Dropdown,
   InlineLoading,
   Layer,
   Pagination,
@@ -27,31 +26,24 @@ import {
   usePagination,
 } from '@openmrs/esm-framework';
 import { EmptyDataIllustration } from '@openmrs/esm-patient-common-lib';
-import { useBills } from '../billing.resource';
-import styles from './bills-table.scss';
-import { billType } from '../types';
+import { useQuotation } from '../billing.resource';
+import styles from './quotations-table.scss';
 
-const filterItems = [
-  { id: '', text: 'All bills' },
-  { id: 'PENDING', text: 'Pending bills' },
-  { id: 'PAID', text: 'Paid bills' },
-  { id: 'POSTED', text: 'Posted bills' },
-];
+const filterItems = [];
 
 type BillTableProps = {
   defaultBillPaymentStatus?: string;
 };
 
-const BillsTable: React.FC<BillTableProps> = ({ defaultBillPaymentStatus = '' }) => {
+const QuotationsTable: React.FC<BillTableProps> = ({ defaultBillPaymentStatus = '' }) => {
   const { t } = useTranslation();
   const id = useId();
   const config = useConfig();
   const layout = useLayoutType();
   const responsiveSize = isDesktop(layout) ? 'sm' : 'lg';
-  const [billPaymentStatus, setBillPaymentStatus] = useState(defaultBillPaymentStatus);
   const pageSizes = config?.bills?.pageSizes ?? [10, 20, 30, 40, 50];
   const [pageSize, setPageSize] = useState(config?.bills?.pageSize ?? 10);
-  const { bills, isLoading, isValidating, error } = useBills('', billPaymentStatus, billType.INVOICE);
+  const { quotations, isLoading, isValidating, error } = useQuotation('', 'QUOTATION');
   const [searchString, setSearchString] = useState('');
 
   const headerData = [
@@ -68,20 +60,16 @@ const BillsTable: React.FC<BillTableProps> = ({ defaultBillPaymentStatus = '' })
       key: 'patientName',
     },
     {
-      header: t('billedItems', 'Billed Items'),
+      header: t('quotedItems', 'quoted Items'),
       key: 'billedItems',
-    },
-    {
-      header: t('status', 'Status'),
-      key: 'status',
     },
   ];
 
   const searchResults = useMemo(() => {
-    if (bills !== undefined && bills.length > 0) {
+    if (quotations !== undefined && quotations.length > 0) {
       if (searchString && searchString.trim() !== '') {
         const search = searchString.toLowerCase();
-        return bills?.filter((activeBillRow) =>
+        return quotations?.filter((activeBillRow) =>
           Object.entries(activeBillRow).some(([header, value]) => {
             if (header === 'patientUuid') {
               return false;
@@ -92,8 +80,8 @@ const BillsTable: React.FC<BillTableProps> = ({ defaultBillPaymentStatus = '' })
       }
     }
 
-    return bills;
-  }, [searchString, bills]);
+    return quotations;
+  }, [searchString, quotations]);
 
   const { paginated, goTo, results, currentPage } = usePagination(searchResults, pageSize);
 
@@ -103,7 +91,7 @@ const BillsTable: React.FC<BillTableProps> = ({ defaultBillPaymentStatus = '' })
       '',
     );
 
-  const billingUrl = '${openmrsSpaBase}/home/billing/invoice/${patientUuid}/${uuid}';
+  const billingUrl = '${openmrsSpaBase}/home/billing/quotation/${patientUuid}/${uuid}';
 
   const rowData = results?.map((bill, index) => ({
     id: `${index}`,
@@ -132,8 +120,6 @@ const BillsTable: React.FC<BillTableProps> = ({ defaultBillPaymentStatus = '' })
     [goTo, setSearchString],
   );
 
-  const handleFilterChange = ({ selectedItem }) => setBillPaymentStatus(selectedItem.id);
-
   if (isLoading) {
     return (
       <div className={styles.loaderContainer}>
@@ -153,7 +139,7 @@ const BillsTable: React.FC<BillTableProps> = ({ defaultBillPaymentStatus = '' })
     return (
       <div className={styles.errorContainer}>
         <Layer>
-          <ErrorState error={error} headerTitle={t('billsList', 'Bill list')} />
+          <ErrorState error={error} headerTitle={t('QuotationsList', 'Quotations list')} />
         </Layer>
       </div>
     );
@@ -161,23 +147,7 @@ const BillsTable: React.FC<BillTableProps> = ({ defaultBillPaymentStatus = '' })
 
   return (
     <>
-      <div className={styles.filterContainer}>
-        <Dropdown
-          className={styles.filterDropdown}
-          direction="bottom"
-          id={`filter-${id}`}
-          initialSelectedItem={filterItems.find((item) => item.id === billPaymentStatus)}
-          items={filterItems}
-          itemToString={(item) => (item ? item.text : '')}
-          label=""
-          onChange={handleFilterChange}
-          size={responsiveSize}
-          titleText={t('filterBy', 'Filter by') + ':'}
-          type="inline"
-        />
-      </div>
-
-      {bills?.length > 0 ? (
+      {quotations?.length > 0 ? (
         <div className={styles.billListContainer}>
           <FilterableTableHeader
             handleSearch={handleSearch}
@@ -258,7 +228,7 @@ const BillsTable: React.FC<BillTableProps> = ({ defaultBillPaymentStatus = '' })
             <div className={styles.illo}>
               <EmptyDataIllustration />
             </div>
-            <p className={styles.content}>There are no bills to display.</p>
+            <p className={styles.content}>There are no quotations to display.</p>
           </Tile>
         </Layer>
       )}
@@ -275,7 +245,7 @@ function FilterableTableHeader({ layout, handleSearch, isValidating, responsiveS
             [styles.tabletHeading]: !isDesktop(layout),
             [styles.desktopHeading]: isDesktop(layout),
           })}>
-          <h4>{t('billList', 'Bill list')}</h4>
+          <h4>{t('QuotationsList', 'Quotations List')}</h4>
         </div>
         <div className={styles.backgroundDataFetchingIndicator}>
           <span>{isValidating ? <InlineLoading /> : null}</span>
@@ -291,4 +261,4 @@ function FilterableTableHeader({ layout, handleSearch, isValidating, responsiveS
   );
 }
 
-export default BillsTable;
+export default QuotationsTable;

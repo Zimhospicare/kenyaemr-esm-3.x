@@ -136,6 +136,7 @@ export interface PatientInvoice {
   adjustmentReason: any;
   id: number;
   resourceVersion: string;
+  billType: string;
 }
 
 export interface PatientDetails {
@@ -322,6 +323,11 @@ export enum PaymentStatus {
   CANCELLED = 'CANCELLED',
   ADJUSTED = 'ADJUSTED',
   EXEMPTED = 'EXEMPTED',
+}
+
+export enum billType {
+  QUOTATION = 'QUOTATION',
+  INVOICE = 'INVOICE',
 }
 
 export interface Benefits {
@@ -572,4 +578,8 @@ export interface Filter {
   serviceTypes?: Array<string>;
   cashiers?: Array<string>;
   status?: string;
+}
+
+export interface exchangeRate {
+  rate_amount: number;
 }

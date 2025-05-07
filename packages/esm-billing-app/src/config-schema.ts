@@ -175,7 +175,7 @@ export const configSchema: ConfigSchema = {
     _type: Type.String,
     _description: 'The url to fetch patient bills',
     _default:
-      '${restBaseUrl}/cashier/bill?v=custom:(uuid,display,voided,voidReason,adjustedBy,cashPoint:(uuid,name),cashier:(uuid,display),dateCreated,lineItems,patient:(uuid,display))',
+      '${restBaseUrl}/cashier/bill?billType=INVOICE&v=custom:(uuid,display,voided,voidReason,adjustedBy,cashPoint:(uuid,name),cashier:(uuid,display),dateCreated,lineItems,patient:(uuid,display))',
   },
   concepts: {
     emergencyPriorityConceptUuid: {

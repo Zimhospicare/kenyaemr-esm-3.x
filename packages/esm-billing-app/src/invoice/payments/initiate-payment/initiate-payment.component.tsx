@@ -23,6 +23,7 @@ import { initiateStkPush } from '../../../ecocash/ecocash-resource';
 import { MappedBill } from '../../../types';
 import { formatZimbabwePhoneNumber } from '../utils';
 import styles from './initiate-payment.scss';
+import { useCurrentExchangeRate, useDefaultFacility } from '../../../billing.resource';
 
 const initiatePaymentSchema = z.object({
   phoneNumber: z
@@ -47,6 +48,8 @@ const InitiatePaymentDialog: React.FC<InitiatePaymentDialogProps> = ({ closeModa
   const [notification, setNotification] = useState<{ type: 'error' | 'success'; message: string } | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [{ requestStatus }, pollingTrigger] = useRequestStatus(setNotification, closeModal, bill);
+  const { data: currentRate } = useCurrentExchangeRate() || {};
+  const { data: facilityInfo } = useDefaultFacility();
 
   const pendingAmount = bill.totalAmount - bill.tenderedAmount;
 
@@ -149,6 +152,9 @@ const InitiatePaymentDialog: React.FC<InitiatePaymentDialogProps> = ({ closeModa
                 </Layer>
               )}
             />
+            <div className="">
+              <p>Current exchange Rate: {0}</p>
+            </div>
           </section>
           <section>
             <Button kind="secondary" className={styles.buttonLayout} onClick={closeModal}>

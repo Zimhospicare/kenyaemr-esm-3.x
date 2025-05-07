@@ -291,5 +291,14 @@
   "visitTime": "Visit time",
   "visittype": "Visit Type",
   "waiveBill": "Waive Bill",
-  "yes": "Yes"
+  "yes": "Yes",
+  "QuotationsList": "Quotations list",
+  "quotedItems": "Quoted Items",
+  "acceptQuotation": "Accept Quotation",
+  "quotation": "Quotation",
+  "quotationError": "Quotation Error",
+  "quotedTo" : "Quoted to",
+  "printQuotation": "Print Quotation...",
+  "approveQuotation": "Approve Quotation",
+  "successfullyAcceptedQuotation": "successfully Accepted Quotation"
 }

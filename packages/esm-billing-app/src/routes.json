@@ -306,6 +306,10 @@
     {
       "name": "create-bill-item-modal",
       "component": "createBillItemModal"
+    },
+    {
+      "name": "accept-quotation-modal",
+      "component": "acceptQuotationModalDialog"
     }
   ]
 }

@@ -16,7 +16,15 @@ import useSWR from 'swr';
 import { z } from 'zod';
 import { BillingConfig } from './config-schema';
 import { extractString } from './helpers';
-import { FacilityDetail, MappedBill, PatientInvoice, PaymentMethod, PaymentStatus } from './types';
+import {
+  billType,
+  exchangeRate,
+  FacilityDetail,
+  MappedBill,
+  PatientInvoice,
+  PaymentMethod,
+  PaymentStatus,
+} from './types';
 
 export const mapBillProperties = (bill: PatientInvoice): MappedBill => {
   // create base object
@@ -67,13 +75,14 @@ export const mapBillProperties = (bill: PatientInvoice): MappedBill => {
 export const useBills = (
   patientUuid: string = '',
   billStatus: PaymentStatus.PENDING | '' | string = '',
+  billType: billType.INVOICE | '' | string = '',
   startingDate: Date = dayjs().startOf('day').toDate(),
   endDate: Date = dayjs().endOf('day').toDate(),
 ) => {
   const startingDateISO = startingDate.toISOString();
   const endDateISO = endDate.toISOString();
 
-  const url = `${restBaseUrl}/cashier/bill?status=${billStatus}&v=custom:(uuid,display,voided,voidReason,adjustedBy,cashPoint:(uuid,name),cashier:(uuid,display),dateCreated,lineItems,patient:(uuid,display))&createdOnOrAfter=${startingDateISO}&createdOnOrBefore=${endDateISO}`;
+  const url = `${restBaseUrl}/cashier/bill?billType=${billType}&status=${billStatus}&v=custom:(uuid,display,voided,voidReason,adjustedBy,cashPoint:(uuid,name),cashier:(uuid,display),dateCreated,lineItems,patient:(uuid,display))&createdOnOrAfter=${startingDateISO}&createdOnOrBefore=${endDateISO}`;
 
   const { data, error, isLoading, isValidating, mutate } = useSWR<{ data: { results: Array<PatientInvoice> } }>(
     patientUuid ? `${url}&patientUuid=${patientUuid}` : url,
@@ -156,6 +165,39 @@ export const useBill = (billUuid: string) => {
   };
 };
 
+export const useQuotation = (
+  patientUuid: string = '',
+  billType: billType.QUOTATION | '' | string = '',
+  startingDate: Date = dayjs().startOf('day').toDate(),
+  endDate: Date = dayjs().endOf('day').toDate(),
+) => {
+  const startingDateISO = startingDate.toISOString();
+  const endDateISO = endDate.toISOString();
+
+  const url = `${restBaseUrl}/cashier/bill?billTpe=${billType}&v=custom:(uuid,display,voided,voidReason,adjustedBy,cashPoint:(uuid,name),cashier:(uuid,display),dateCreated,lineItems,patient:(uuid,display))&createdOnOrAfter=${startingDateISO}&createdOnOrBefore=${endDateISO}`;
+
+  const { data, error, isLoading, isValidating, mutate } = useSWR<{ data: { results: Array<PatientInvoice> } }>(
+    patientUuid ? `${url}&patientUuid=${patientUuid}` : url,
+    openmrsFetch,
+    {
+      errorRetryCount: 2,
+    },
+  );
+
+  const sortBills = sortBy(data?.data?.results ?? [], ['dateCreated']).reverse();
+  const filteredQuotations = billType === '' ? sortBills : sortBills?.filter((bill) => bill?.billType === billType);
+  const mappedResults = filteredQuotations?.map((bill) => mapBillProperties(bill));
+  const filteredResults = mappedResults?.filter((res) => res.patientUuid === patientUuid);
+  const formattedQuotations = isEmpty(patientUuid) ? mappedResults : filteredResults || [];
+
+  return {
+    quotations: formattedQuotations,
+    error,
+    isLoading,
+    isValidating,
+    mutate,
+  };
+};
 export const processBillPayment = (payload, billUuid: string) => {
   const url = `${restBaseUrl}/cashier/bill/${billUuid}`;
   return openmrsFetch(url, {
@@ -258,6 +300,13 @@ export const useConceptAnswers = (conceptUuid: string) => {
   const url = `${restBaseUrl}/concept/${conceptUuid}`;
   const { data, isLoading, error } = useSWR<{ data: { answers: Array<OpenmrsResource> } }>(url, openmrsFetch);
   return { conceptAnswers: data?.data?.answers, isLoading, error };
+};
+
+export const useCurrentExchangeRate = () => {
+  const { authenticated } = useSession();
+  const url = `${restBaseUrl}/cashier/exchange-rate`;
+  const { data, isLoading } = useSWR<{ data: exchangeRate }>(authenticated ? url : null, openmrsFetch, {});
+  return { data: data?.data, isLoading: isLoading };
 };
 
 export const billingFormSchema = z.object({

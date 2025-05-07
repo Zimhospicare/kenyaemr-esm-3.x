@@ -13,6 +13,7 @@ import PaymentModeHome from './payment-modes/payment-mode-home.component';
 import { ClockInBoundary } from './payment-points/clock-in-boundary.component';
 import { PaymentPoint } from './payment-points/payment-point/payment-point.component';
 import { PaymentPoints } from './payment-points/payment-points.component';
+import Quotation from './Quotation/quotation.component';
 
 const RootComponent: React.FC = () => {
   const baseName = window.getOpenmrsSpaBase() + 'home/billing';
@@ -24,7 +25,15 @@ const RootComponent: React.FC = () => {
         <Route path="/claims-overview" element={<ClaimsManagementOverview />} />
         <Route path="/preauth-requests" element={<ClaimsManagementPreAuthRequest />} />
         <Route
-          path="/patient/:patientUuid/:billUuid"
+          path="/quotation/:patientUuid/:billUuid"
+          element={
+            <ClockInBoundary>
+              <Quotation />
+            </ClockInBoundary>
+          }
+        />
+        <Route
+          path="/invoice/:patientUuid/:billUuid"
           element={
             <ClockInBoundary>
               <Invoice />
