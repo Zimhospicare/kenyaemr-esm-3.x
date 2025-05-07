@@ -19,16 +19,17 @@ import {
 } from '@carbon/react';
 import { useTranslation } from 'react-i18next';
 import {
-  useLayoutType,
+  ConfigurableLink,
+  ErrorState,
   isDesktop,
   useConfig,
+  useLayoutType,
   usePagination,
-  ErrorState,
-  ConfigurableLink,
 } from '@openmrs/esm-framework';
 import { EmptyDataIllustration } from '@openmrs/esm-patient-common-lib';
 import { useBills } from '../billing.resource';
 import styles from './bills-table.scss';
+import { billType } from '../types';
 
 const filterItems = [
   { id: '', text: 'All bills' },
@@ -50,7 +51,7 @@ const BillsTable: React.FC<BillTableProps> = ({ defaultBillPaymentStatus = '' })
   const [billPaymentStatus, setBillPaymentStatus] = useState(defaultBillPaymentStatus);
   const pageSizes = config?.bills?.pageSizes ?? [10, 20, 30, 40, 50];
   const [pageSize, setPageSize] = useState(config?.bills?.pageSize ?? 10);
-  const { bills, isLoading, isValidating, error } = useBills('', billPaymentStatus);
+  const { bills, isLoading, isValidating, error } = useBills('', billPaymentStatus, billType.INVOICE);
   const [searchString, setSearchString] = useState('');
 
   const headerData = [
@@ -102,7 +103,7 @@ const BillsTable: React.FC<BillTableProps> = ({ defaultBillPaymentStatus = '' })
       '',
     );
 
-  const billingUrl = '${openmrsSpaBase}/home/billing/patient/${patientUuid}/${uuid}';
+  const billingUrl = '${openmrsSpaBase}/home/billing/invoice/${patientUuid}/${uuid}';
 
   const rowData = results?.map((bill, index) => ({
     id: `${index}`,

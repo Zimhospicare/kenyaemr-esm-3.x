@@ -71,7 +71,7 @@ const ClaimsForm: React.FC<ClaimsFormProps> = ({ bill, selectedLineItems }) => {
 
   const handleNavigateToBillingOptions = () =>
     navigate({
-      to: window.getOpenmrsSpaBase() + `home/billing/patient/${patientUuid}/${billUuid}`,
+      to: window.getOpenmrsSpaBase() + `home/billing/invoice/${patientUuid}/${billUuid}`,
     });
 
   const form = useForm<z.infer<typeof ClaimsFormSchema>>({

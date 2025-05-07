@@ -63,7 +63,7 @@ export const usePaymentsReconciler = (billUUID: string) => {
       const amount = parseInt(paymentInstance?.amount);
       const requestStatus = paymentInstance?.requestStatus;
 
-      if (requestStatus === 'COMPLETE') {
+      if (requestStatus === 'SUCCESS') {
         const payload = createMobileMoneyPaymentPayload(bill, amount, mobileMoneyPaymentMethodInstanceTypeUUID, {
           uuid: paymentReferenceUUID,
           value: ref,

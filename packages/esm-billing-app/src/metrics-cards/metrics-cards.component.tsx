@@ -6,10 +6,11 @@ import { useTranslation } from 'react-i18next';
 import { useBills } from '../billing.resource';
 import styles from './metrics-cards.scss';
 import { useBillMetrics } from './metrics.resource';
+import { billType } from '../types';
 
 export default function MetricsCards() {
   const { t } = useTranslation();
-  const { bills, isLoading, error } = useBills('');
+  const { bills, isLoading, error } = useBills('', '', billType.INVOICE);
   const { totalBills, pendingBills, paidBills, exemptedBills } = useBillMetrics(bills);
 
   const cards = useMemo(

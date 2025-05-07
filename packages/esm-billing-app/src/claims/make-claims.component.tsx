@@ -10,7 +10,7 @@ const MakeClaims: React.FC<{ patientUuid: string; billUuid: string }> = ({ patie
   const { t } = useTranslation();
 
   const navigateToCreateClaimScreen = () => {
-    navigate({ to: `${spaBasePath}/billing/patient/${patientUuid}/${billUuid}/claims` });
+    navigate({ to: `${spaBasePath}/billing/invoice/${patientUuid}/${billUuid}/claims` });
   };
 
   return (

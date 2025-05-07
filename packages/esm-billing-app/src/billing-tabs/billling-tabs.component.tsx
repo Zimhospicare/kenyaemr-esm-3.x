@@ -7,6 +7,7 @@ import BillsTable from '../bills-table/bills-table.component';
 import PatientBillsScreen from '../past-patient-bills/patient-bills-dashboard/patient-bills-dashboard';
 import { useClockInStatus } from '../payment-points/use-clock-in-status';
 import styles from './billing-tabs.scss';
+import QuotationsTable from '../quotations-table/quotations-table.component';
 
 const BillingTabs = () => {
   const { t } = useTranslation();
@@ -29,6 +30,7 @@ const BillingTabs = () => {
       <Tabs selectedIndex={activeTabIndex} onChange={handleTabChange}>
         <div style={{ display: 'flex' }}>
           <TabList style={{ paddingLeft: '1rem' }} aria-label="Billing tabs" contained>
+            <Tab>{"Today's Quotations"}</Tab>
             <Tab>{"Today's bills"}</Tab>
             <Tab>{t('patientBills', 'Patient Bill')}</Tab>
           </TabList>
@@ -47,6 +49,9 @@ const BillingTabs = () => {
           )}
         </div>
         <TabPanels>
+          <TabPanel>
+            <QuotationsTable />
+          </TabPanel>
           <TabPanel>
             <BillsTable />
           </TabPanel>

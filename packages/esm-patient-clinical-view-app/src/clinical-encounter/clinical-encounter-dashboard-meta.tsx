@@ -5,4 +5,5 @@ export const inPatientClinicalEncounterDashboardMeta = {
   path: 'clinical-encounter',
   moduleName: '@zimhospicare/esm-patient-clinical-view-app',
   config: {},
+  icon: '',
 };

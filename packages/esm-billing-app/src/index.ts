@@ -41,6 +41,8 @@ import { CreatePaymentPoint } from './payment-points/create-payment-point.compon
 import { ClockIn } from './payment-points/payment-point/clock-in.modal';
 import { ClockOut } from './payment-points/payment-point/clock-out.modal';
 import RequirePaymentModal from './prompt-payment/prompt-payment-modal.component';
+import { AcceptQuotationModal } from './Quotation/accept.quotation.modal';
+
 import rootComponent from './root.component';
 
 const moduleName = '@zimhospicare/esm-billing-app';
@@ -53,7 +55,11 @@ const options = {
 export const importTranslation = require.context('../translations', false, /.json$/, 'lazy');
 
 export const billingSummaryDashboardLink = getSyncLifecycle(
-  createDashboardLink({ ...dashboardMeta, moduleName }),
+  createDashboardLink({
+    ...dashboardMeta,
+    moduleName,
+    icon: '',
+  }),
   options,
 );
 
@@ -149,6 +155,7 @@ export const benefitsPackageDashboardLink = getSyncLifecycle(
   createDashboardLink({
     ...benefitsPackageDashboardMeta,
     moduleName,
+    icon: '',
   }),
   options,
 );
@@ -198,6 +205,8 @@ export const deletePaymentModeModal = getSyncLifecycle(DeletePaymentModeModal, o
 export const retryClaimRequestModal = getSyncLifecycle(RetryClaimRequest, options);
 
 export const paidBillReceiptPrintPreviewModal = getSyncLifecycle(ReceiptPrintPreviewModal, options);
+
+export const acceptQuotationModalDialog = getSyncLifecycle(AcceptQuotationModal, options);
 
 export function startupApp() {
   defineConfigSchema(moduleName, configSchema);

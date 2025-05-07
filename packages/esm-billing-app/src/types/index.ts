@@ -136,6 +136,7 @@ export interface PatientInvoice {
   adjustmentReason: any;
   id: number;
   resourceVersion: string;
+  billType: string;
 }
 
 export interface PatientDetails {
@@ -306,7 +307,13 @@ export type QueueEntry = {
   };
 };
 
-export type RequestStatus = 'INITIATED' | 'COMPLETE' | 'FAILED' | 'NOT-FOUND';
+export type RequestStatus =
+  | 'PENDING'
+  | 'AWAITING_USER_VALIDATION'
+  | 'SUCCESS'
+  | 'COMPLETED'
+  | 'FAILED'
+  | 'USER_CANCELLED';
 
 export enum PaymentStatus {
   POSTED = 'POSTED',
@@ -316,6 +323,11 @@ export enum PaymentStatus {
   CANCELLED = 'CANCELLED',
   ADJUSTED = 'ADJUSTED',
   EXEMPTED = 'EXEMPTED',
+}
+
+export enum billType {
+  QUOTATION = 'QUOTATION',
+  INVOICE = 'INVOICE',
 }
 
 export interface Benefits {
@@ -566,4 +578,8 @@ export interface Filter {
   serviceTypes?: Array<string>;
   cashiers?: Array<string>;
   status?: string;
+}
+
+export interface exchangeRate {
+  rate_amount: number;
 }

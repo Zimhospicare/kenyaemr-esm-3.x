@@ -163,9 +163,9 @@ const Invoice: React.FC = () => {
   const handleViewClaims = async () => {
     if (currentVisit) {
       await handleEndVisit();
-      navigate({ to: `${spaBasePath}/billing/patient/${patientUuid}/${billUuid}/claims` });
+      navigate({ to: `${spaBasePath}/billing/invoice/${patientUuid}/${billUuid}/claims` });
     } else {
-      navigate({ to: `${spaBasePath}/billing/patient/${patientUuid}/${billUuid}/claims` });
+      navigate({ to: `${spaBasePath}/billing/invoice/${patientUuid}/${billUuid}/claims` });
     }
   };
 
@@ -198,7 +198,7 @@ const Invoice: React.FC = () => {
           renderIcon={Wallet}
           iconDescription="Add"
           tooltipPosition="left">
-          {t('mpesaPayment', 'MPESA Payment')}
+          {t('echoCashPayment', 'Echo Cash Payment')}
         </Button>
         {isProcessClaimsFormEnabled && (
           <Button

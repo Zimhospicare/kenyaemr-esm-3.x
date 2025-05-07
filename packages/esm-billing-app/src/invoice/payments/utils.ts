@@ -32,19 +32,19 @@ export const extractServiceIdentifier = (billableItem) => {
  * @param {string|number} rawPhoneNumber - The unformatted phone number
  * @returns {string} - Properly formatted phone number with country code or error message
  * @example
- * formatKenyanPhoneNumber('0712345678') // Returns '254712345678'
- * formatKenyanPhoneNumber('712345678') // Returns '254712345678'
+ * formatZimbabwePhoneNumber('0712345678') // Returns '254712345678'
+ * formatZimbabwePhoneNumber('712345678') // Returns '254712345678'
  */
-export const formatKenyanPhoneNumber = (rawPhoneNumber) => {
+export const formatZimbabwePhoneNumber = (rawPhoneNumber) => {
   const digitsOnly = rawPhoneNumber.toString().replace(/\D/g, '');
 
   switch (true) {
-    case digitsOnly.length === 12 && digitsOnly.startsWith('254'):
+    case digitsOnly.length === 12 && digitsOnly.startsWith('263'):
       return digitsOnly;
     case digitsOnly.length === 9 && digitsOnly.startsWith('7'):
-      return `254${digitsOnly}`;
+      return `263${digitsOnly}`;
     case digitsOnly.length === 10 && digitsOnly.startsWith('0'):
-      return `254${digitsOnly.substring(1)}`;
+      return `263${digitsOnly.substring(1)}`;
     default:
       return `Invalid Phone Number ${rawPhoneNumber}`;
   }

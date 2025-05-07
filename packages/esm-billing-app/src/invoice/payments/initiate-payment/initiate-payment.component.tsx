@@ -19,10 +19,11 @@ import { BillingConfig } from '../../../config-schema';
 import { useSystemSetting } from '../../../hooks/getMflCode';
 import { usePatientAttributes } from '../../../hooks/usePatientAttributes';
 import { useRequestStatus } from '../../../hooks/useRequestStatus';
-import { initiateStkPush } from '../../../m-pesa/mpesa-resource';
+import { initiateStkPush } from '../../../ecocash/ecocash-resource';
 import { MappedBill } from '../../../types';
-import { formatKenyanPhoneNumber } from '../utils';
+import { formatZimbabwePhoneNumber } from '../utils';
 import styles from './initiate-payment.scss';
+import { useCurrentExchangeRate, useDefaultFacility } from '../../../billing.resource';
 
 const initiatePaymentSchema = z.object({
   phoneNumber: z
@@ -42,11 +43,13 @@ export interface InitiatePaymentDialogProps {
 const InitiatePaymentDialog: React.FC<InitiatePaymentDialogProps> = ({ closeModal, bill }) => {
   const { t } = useTranslation();
   const { phoneNumber, isLoading: isLoadingPhoneNumber } = usePatientAttributes(bill.patientUuid);
-  const { mpesaAPIBaseUrl, isPDSLFacility } = useConfig<BillingConfig>();
+  const { echoCashAPIBaseUrl, isPDSLFacility } = useConfig<BillingConfig>();
   const { mflCodeValue } = useSystemSetting('facility.mflcode');
   const [notification, setNotification] = useState<{ type: 'error' | 'success'; message: string } | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [{ requestStatus }, pollingTrigger] = useRequestStatus(setNotification, closeModal, bill);
+  const { data: currentRate } = useCurrentExchangeRate() || {};
+  const { data: facilityInfo } = useDefaultFacility();
 
   const pendingAmount = bill.totalAmount - bill.tenderedAmount;
 
@@ -75,9 +78,9 @@ const InitiatePaymentDialog: React.FC<InitiatePaymentDialogProps> = ({ closeModa
   }, [watchedPhoneNumber, setValue, phoneNumber, reset]);
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
-    const phoneNumber = formatKenyanPhoneNumber(data.phoneNumber);
+    const phoneNumber = formatZimbabwePhoneNumber(data.phoneNumber);
     const amountBilled = data.billAmount;
-    const accountReference = `${mflCodeValue}#${bill.uuid}`;
+    const accountReference = `${bill.uuid}`;
 
     const payload = {
       AccountReference: accountReference,
@@ -86,8 +89,14 @@ const InitiatePaymentDialog: React.FC<InitiatePaymentDialogProps> = ({ closeModa
     };
 
     setIsLoading(true);
-    const requestId = await initiateStkPush(payload, setNotification, mpesaAPIBaseUrl, isPDSLFacility);
-    pollingTrigger({ requestId, requestStatus: 'INITIATED', amount: amountBilled });
+    const success = await initiateStkPush(payload, setNotification, echoCashAPIBaseUrl, isPDSLFacility);
+    pollingTrigger({
+      AccountReference: payload.AccountReference,
+      PhoneNumber: payload.PhoneNumber,
+      success,
+      requestStatus: 'SUCCESS',
+      amount: amountBilled,
+    });
     setIsLoading(false);
   };
 
@@ -143,6 +152,9 @@ const InitiatePaymentDialog: React.FC<InitiatePaymentDialogProps> = ({ closeModa
                 </Layer>
               )}
             />
+            <div className="">
+              <p>Current exchange Rate: {0}</p>
+            </div>
           </section>
           <section>
             <Button kind="secondary" className={styles.buttonLayout} onClick={closeModal}>
@@ -152,7 +164,7 @@ const InitiatePaymentDialog: React.FC<InitiatePaymentDialogProps> = ({ closeModa
               type="submit"
               className={styles.button}
               onClick={handleSubmit(onSubmit)}
-              disabled={!isValid || isLoading || requestStatus === 'INITIATED'}>
+              disabled={!isValid || isLoading || requestStatus === 'AWAITING_USER_VALIDATION'}>
               {isLoading ? (
                 <>
                   <Loading className={styles.button_spinner} withOverlay={false} small />{' '}

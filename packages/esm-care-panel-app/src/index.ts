@@ -39,11 +39,19 @@ export const patientCareProgram = getSyncLifecycle(careProgramsComponent, {
 
 // t('carePanel', 'Care panel')
 export const carePanelSummaryDashboardLink = getSyncLifecycle(
-  createDashboardLink({ ...dashboardMeta, moduleName }),
+  createDashboardLink({
+    ...dashboardMeta,
+    moduleName,
+    icon: '',
+  }),
   options,
 );
 export const hivPatientSummaryDashboardLink = getSyncLifecycle(
-  createDashboardLink({ ...hivPatientSummaryDashboardMeta, moduleName }),
+  createDashboardLink({
+    ...hivPatientSummaryDashboardMeta,
+    moduleName,
+    icon: '',
+  }),
   options,
 );
 export const hivPatientSummary = getSyncLifecycle(PatientSummary, options);

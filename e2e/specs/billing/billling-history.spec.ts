@@ -78,7 +78,7 @@ test('Make payment for a bill', async ({ page }) => {
       const randomIndex = Math.floor(Math.random() * tdWithAnchorTags.length);
       await tdWithAnchorTags[randomIndex].click();
       const currentURL = page.url();
-      expect(currentURL).toContain('/spa/home/billing/patient/');
+      expect(currentURL).toContain('/spa/home/billing/invoice/');
     });
   } else {
     test.skip();

@@ -63,7 +63,7 @@ export const PaymentFilterProvider = ({ children }: PaymentFilterProviderProps) 
   };
   const [filters, setFilters] = useState<Filter>(defaultFilters);
 
-  const billsResponse = useBills('', PaymentStatus.PAID, dateRange[0], dateRange[1]);
+  const billsResponse = useBills('', PaymentStatus.PAID, 'INVOICE', dateRange[0], dateRange[1]);
   const { bills, isLoading, error } = billsResponse;
 
   const resetFilters = () => {

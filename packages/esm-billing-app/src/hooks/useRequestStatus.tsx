@@ -5,7 +5,7 @@ import { mutate } from 'swr';
 import { processBillPayment, usePaymentModes } from '../billing.resource';
 import { BillingConfig } from '../config-schema';
 import { extractServiceIdentifier } from '../invoice/payments/utils';
-import { getErrorMessage, getRequestStatus, readableStatusMap } from '../m-pesa/mpesa-resource';
+import { getErrorMessage, getRequestStatus, readableStatusMap } from '../ecocash/ecocash-resource';
 import { useClockInStatus } from '../payment-points/use-clock-in-status';
 import { LineItem, MappedBill, PaymentStatus, RequestStatus, Timesheet } from '../types';
 import { extractErrorMessagesFromResponse, waitForASecond } from '../utils';
@@ -86,14 +86,20 @@ export const createMobileMoneyPaymentPayload = (
 };
 
 type RequestData = {
-  requestId: string;
+  PhoneNumber: string;
+  AccountReference: string;
+  success: boolean;
   requestStatus: RequestStatus | null;
   amount: string | null;
 };
 
+// @ts-ignore
+// @ts-ignore
 /**
  * useRequestStatus
  * @param setNotification a function to call with the appropriate notification type
+ * @param closeModal
+ * @param bill
  * @returns a function to trigger the polling.
  */
 export const useRequestStatus = (
@@ -102,14 +108,19 @@ export const useRequestStatus = (
   bill: MappedBill,
 ): [RequestData, React.Dispatch<React.SetStateAction<RequestData | null>>] => {
   const { t } = useTranslation();
-  const { mpesaAPIBaseUrl, isPDSLFacility } = useConfig<BillingConfig>();
+
+  const { echoCashAPIBaseUrl, isPDSLFacility } = useConfig<BillingConfig>();
+
   const { paymentModes } = usePaymentModes();
+
   const paymentReferenceUUID = paymentModes
     .find((mode) => mode.name === 'Mobile Money')
     ?.attributeTypes.find((type) => type.description === 'Reference Number').uuid;
 
   const [requestData, setRequestData] = useState<RequestData>({
-    requestId: null,
+    PhoneNumber: null,
+    AccountReference: null,
+    success: false,
     requestStatus: null,
     amount: null,
   });
@@ -118,16 +129,23 @@ export const useRequestStatus = (
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
-
-    if (requestData.requestId && !['COMPLETE', 'FAILED', 'NOT-FOUND'].includes(requestData.requestStatus)) {
+    // eslint-disable-next-line no-console
+    console.log('start validation of the payment......');
+    if (
+      requestData.success &&
+      !['AWAITING_USER_VALIDATION', 'PENDING', 'FAILED', 'USER_CANCELLED'].includes(requestData.requestStatus)
+    ) {
+      // eslint-disable-next-line no-console
+      console.log('Payment has been validated......');
       const fetchStatus = async () => {
         try {
-          const { status, referenceCode } = await getRequestStatus(
-            requestData.requestId,
-            mpesaAPIBaseUrl,
+          const { status, ecocashReference } = await getRequestStatus(
+            { PhoneNumber: requestData.PhoneNumber, AccountReference: requestData.AccountReference },
+            echoCashAPIBaseUrl,
             isPDSLFacility,
           );
-          if (status === 'COMPLETE') {
+
+          if (status === 'AWAITING_USER_VALIDATION') {
             clearInterval(interval);
 
             waitForASecond().then(() => {
@@ -142,7 +160,7 @@ export const useRequestStatus = (
               bill,
               parseInt(requestData.amount),
               mobileMoneyPaymentMethodInstanceTypeUUID,
-              { uuid: paymentReferenceUUID, value: referenceCode },
+              { uuid: paymentReferenceUUID, value: ecocashReference },
               globalActiveSheet,
             );
 
@@ -171,15 +189,15 @@ export const useRequestStatus = (
             );
           }
 
-          if (status === 'FAILED' || status === 'NOT-FOUND') {
+          if (status === 'USER_CANCELLED' || status === 'FAILED') {
             clearInterval(interval);
           }
 
-          if (status === 'COMPLETE' || status === 'INITIATED') {
+          if (status === 'SUCCESS' || status === 'COMPLETED') {
             setNotification({ type: 'success', message: readableStatusMap.get(status) });
           }
 
-          if (status === 'FAILED' || status === 'NOT-FOUND') {
+          if (status === 'USER_CANCELLED' || status === 'FAILED') {
             setNotification({ type: 'error', message: readableStatusMap.get(status) });
           }
         } catch (error) {
@@ -191,15 +209,18 @@ export const useRequestStatus = (
       interval = setInterval(fetchStatus, 2000);
 
       return () => clearInterval(interval);
+    } else {
+      // eslint-disable-next-line no-console
+      console.log('No validation od the payment');
     }
   }, [
     bill,
     closeModal,
-    mpesaAPIBaseUrl,
+    echoCashAPIBaseUrl,
     paymentModes,
     paymentReferenceUUID,
     requestData.amount,
-    requestData.requestId,
+    requestData.success,
     requestData.requestStatus,
     setNotification,
     t,
