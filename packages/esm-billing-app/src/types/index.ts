@@ -583,3 +583,10 @@ export interface Filter {
 export interface exchangeRate {
   rate_amount: number;
 }
+
+export interface payloadVisa {
+  PaymentAmount: number;
+  PaymentCurrency: string;
+  DefaultPayment: string;
+  BackURL: string;
+}

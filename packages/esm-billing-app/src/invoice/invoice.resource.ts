@@ -1,5 +1,6 @@
 import { Concept, openmrsFetch, restBaseUrl, toDateObjectStrict, toOmrsIsoString, Visit } from '@openmrs/esm-framework';
 import useSWR from 'swr';
+import { payloadVisa } from '../types';
 
 export interface VisitQueueEntry {
   queueEntry: VisitQueueEntry;
@@ -79,3 +80,14 @@ export function removeQueuedPatient(
     signal: abortController.signal,
   });
 }
+
+export const processVisaCardBillPayment = (visaPayload: payloadVisa) => {
+  const url = `https://secure.3gdirectpay.com/API/v6?`;
+  return openmrsFetch(url, {
+    method: 'POST',
+    body: visaPayload,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+};

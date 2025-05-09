@@ -159,6 +159,7 @@
   "makePreAuthRequests": "Make Pre Auth Request",
   "mpesaPayment": "MPESA Payment",
   "echoCashPayment": "Echo Cash Payment",
+  "visaCardPayment": "Visa Card Payment",
   "name": "Name",
   "navigateBack": "Navigate back",
   "nextPage": "Next page",
