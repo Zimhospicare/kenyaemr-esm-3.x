@@ -18,13 +18,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 import { useReactToPrint } from 'react-to-print';
-import { useBill, useDefaultFacility } from '../billing.resource';
+import { useBill, useGetCurrentDollarRate, useDefaultFacility } from '../billing.resource';
 import { spaBasePath } from '../constants';
 import { convertToCurrency } from '../helpers';
 import { usePaymentsReconciler } from '../hooks/use-payments-reconciler';
-import { LineItem } from '../types';
+import { LineItem, payloadVisa } from '../types';
 import InvoiceTable from './invoice-table.component';
-import { removeQueuedPatient, useVisitQueueEntry } from './invoice.resource';
+import { processVisaCardBillPayment, removeQueuedPatient, useVisitQueueEntry } from './invoice.resource';
 import styles from './invoice.scss';
 import Payments from './payments/payments.component';
 import ReceiptPrintButton from './print-bill-receipt/receipt-print-button.component';
@@ -38,10 +38,21 @@ interface InvoiceDetailsProps {
 const Invoice: React.FC = () => {
   const { t } = useTranslation();
   const { data: facilityInfo } = useDefaultFacility();
+  const { data: exchangeRate } = useGetCurrentDollarRate();
   const { billUuid, patientUuid } = useParams();
   const [isPrinting, setIsPrinting] = useState(false);
   const { patient, isLoading: isLoadingPatient, error: patientError } = usePatient(patientUuid);
   const { bill, isLoading: isLoadingBill, error: billingError } = useBill(billUuid);
+
+  /**
+  const [visaCardPayload, setVisaCardPayload] = useState<payloadVisa>({
+    PaymentAmount: bill.totalAmount,
+    PaymentCurrency: 'USD',
+    DefaultPayment: 'CC',
+    BackURL: 'https://www.hospicare.co.zw/openmrs/spa/home/billing',
+  });
+
+    **/
   usePaymentsReconciler(billUuid);
   const {
     currentVisit,
@@ -80,6 +91,10 @@ const Invoice: React.FC = () => {
       closeModal: () => dispose(),
       bill: bill,
     });
+  };
+  const handleVisaCardPayment = async () => {
+    /** To..do **/
+    // await processVisaCardBillPayment(visaCardPayload);
   };
 
   useEffect(() => {
@@ -199,6 +214,17 @@ const Invoice: React.FC = () => {
           iconDescription="Add"
           tooltipPosition="left">
           {t('echoCashPayment', 'Echo Cash Payment')}
+        </Button>
+
+        <Button
+          onClick={handleVisaCardPayment}
+          disabled={bill?.status === 'PAID'}
+          size="sm"
+          kind={'secondary'}
+          renderIcon={Wallet}
+          iconDescription="Add"
+          tooltipPosition="left">
+          {t('visaCardPayment', 'Echo Cash Payment')}
         </Button>
         {isProcessClaimsFormEnabled && (
           <Button

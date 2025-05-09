@@ -302,7 +302,7 @@ export const useConceptAnswers = (conceptUuid: string) => {
   return { conceptAnswers: data?.data?.answers, isLoading, error };
 };
 
-export const useCurrentExchangeRate = () => {
+export const useGetCurrentDollarRate = () => {
   const { authenticated } = useSession();
   const url = `${restBaseUrl}/cashier/exchange-rate`;
   const { data, isLoading } = useSWR<{ data: exchangeRate }>(authenticated ? url : null, openmrsFetch, {});

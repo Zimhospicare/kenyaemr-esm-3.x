@@ -23,7 +23,7 @@ import { initiateStkPush } from '../../../ecocash/ecocash-resource';
 import { MappedBill } from '../../../types';
 import { formatZimbabwePhoneNumber } from '../utils';
 import styles from './initiate-payment.scss';
-import { useCurrentExchangeRate, useDefaultFacility } from '../../../billing.resource';
+import { useGetCurrentDollarRate, useDefaultFacility } from '../../../billing.resource';
 
 const initiatePaymentSchema = z.object({
   phoneNumber: z
@@ -48,10 +48,12 @@ const InitiatePaymentDialog: React.FC<InitiatePaymentDialogProps> = ({ closeModa
   const [notification, setNotification] = useState<{ type: 'error' | 'success'; message: string } | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [{ requestStatus }, pollingTrigger] = useRequestStatus(setNotification, closeModal, bill);
-  const { data: currentRate } = useCurrentExchangeRate() || {};
+  const { data: currentDollarRate } = useGetCurrentDollarRate();
   const { data: facilityInfo } = useDefaultFacility();
 
   const pendingAmount = bill.totalAmount - bill.tenderedAmount;
+
+  const currentZWLRate = (pendingAmount * currentDollarRate.rate_amount).toLocaleString();
 
   const {
     control,
@@ -153,7 +155,7 @@ const InitiatePaymentDialog: React.FC<InitiatePaymentDialogProps> = ({ closeModa
               )}
             />
             <div className="">
-              <p>Current exchange Rate: {0}</p>
+              <p>Current exchange Rate: `Z${currentZWLRate}`</p>
             </div>
           </section>
           <section>
