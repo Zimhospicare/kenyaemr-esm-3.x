@@ -73,6 +73,7 @@ const Payments: React.FC<PaymentProps> = ({ bill, selectedLineItems }) => {
       bill.patientUuid,
       formValues,
       amountDue,
+      currentRate.data.rate_amount,
       selectedLineItems,
       globalActiveSheet,
     );
