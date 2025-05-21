@@ -291,7 +291,12 @@ export interface Payment {
   resourceVersion: string;
 }
 
-export type FormPayment = { method: PaymentMethod; amount: string | number; referenceCode?: number | string };
+export type FormPayment = {
+  method: PaymentMethod;
+  amount: string | number;
+  currency: string;
+  referenceCode?: number | string;
+};
 
 export type PaymentFormValue = {
   payment: Array<FormPayment>;

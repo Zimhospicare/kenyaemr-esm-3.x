@@ -7,10 +7,10 @@ import { FormProvider, useFieldArray, useForm, useWatch } from 'react-hook-form'
 import { useTranslation } from 'react-i18next';
 import { mutate } from 'swr';
 import { z } from 'zod';
-import { processBillPayment } from '../../billing.resource';
+import { processBillPayment, useGetCurrentDollarRate } from '../../billing.resource';
 import { convertToCurrency } from '../../helpers';
 import { useClockInStatus } from '../../payment-points/use-clock-in-status';
-import { LineItem, PaymentFormValue, PaymentStatus, type MappedBill } from '../../types';
+import { LineItem, PaymentFormValue, PaymentMethod, PaymentStatus, type MappedBill } from '../../types';
 import { computeWaivedAmount, extractErrorMessagesFromResponse } from '../../utils';
 import { InvoiceBreakDown } from './invoice-breakdown/invoice-breakdown.component';
 import PaymentForm from './payment-form/payment-form.component';
@@ -28,6 +28,8 @@ const Payments: React.FC<PaymentProps> = ({ bill, selectedLineItems }) => {
   const { t } = useTranslation();
   const paymentSchema = usePaymentSchema(bill);
   const { globalActiveSheet } = useClockInStatus();
+  const currentRate = useGetCurrentDollarRate();
+  let convertedAmount = bill.totalAmount * currentRate.data.rate_amount;
 
   const methods = useForm<PaymentFormValue>({
     mode: 'onSubmit',
@@ -42,7 +44,15 @@ const Payments: React.FC<PaymentProps> = ({ bill, selectedLineItems }) => {
   });
 
   const totalWaivedAmount = computeWaivedAmount(bill);
-  const totalAmountTendered = formValues?.reduce((curr: number, prev) => curr + Number(prev.amount), 0) ?? 0;
+  const totalAmountTendered =
+    formValues?.reduce((curr: number, prev) => {
+      let amount = curr + Number(prev.amount);
+      if (prev.currency == '41d4680b-5289-4454-a44b-0c4008871166') {
+        amount = curr + Number(prev.amount) / currentRate.data.rate_amount;
+      }
+      return amount;
+    }, 0) ?? 0;
+
   const amountDue = Number(bill.totalAmount) - (Number(bill.tenderedAmount) + Number(totalAmountTendered));
 
   // selected line items amount due
@@ -63,6 +73,7 @@ const Payments: React.FC<PaymentProps> = ({ bill, selectedLineItems }) => {
       bill.patientUuid,
       formValues,
       amountDue,
+      currentRate.data.rate_amount,
       selectedLineItems,
       globalActiveSheet,
     );

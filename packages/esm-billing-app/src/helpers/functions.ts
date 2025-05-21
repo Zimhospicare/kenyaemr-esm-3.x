@@ -48,6 +48,21 @@ export const convertToCurrency = (amountToConvert: number) => {
   return formattedAmount;
 };
 
+export const convertToZWLCurrency = (amountToConvert: number) => {
+  const formatter = new Intl.NumberFormat('en-ZW', {
+    style: 'currency',
+    currency: 'ZWL',
+    minimumFractionDigits: 2,
+  });
+
+  let formattedAmount = formatter.format(Math.abs(amountToConvert));
+
+  if (amountToConvert < 0) {
+    formattedAmount = `- ${formattedAmount}`;
+  }
+
+  return formattedAmount;
+};
 export const getGender = (gender: string, t) => {
   switch (gender) {
     case 'male':

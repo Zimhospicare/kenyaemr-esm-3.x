@@ -1,10 +1,10 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { BillableFormSchema } from '../form-schemas';
-import { Controller, useFormContext, type Control } from 'react-hook-form';
+import { Controller, Noop, RefCallBack, useFormContext, type Control } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { usePaymentModes } from '../../../billing.resource';
+import { useGetCurrentDollarRate, usePaymentModes } from '../../../billing.resource';
 import styles from './service-form.scss';
-import { ComboBox, NumberInput, IconButton } from '@carbon/react';
+import { ComboBox, IconButton, TextInput } from '@carbon/react';
 import { TrashCan } from '@carbon/react/icons';
 import { ResponsiveWrapper } from '@openmrs/esm-framework';
 
@@ -21,6 +21,8 @@ const PriceField: React.FC<PriceFieldProps> = ({ field, index, control, removeSe
   const { paymentModes, isLoading } = usePaymentModes();
   const { watch } = useFormContext();
   const servicePrices = watch('servicePrices');
+  const rate = useGetCurrentDollarRate();
+  const [exchangeAmount, setExchangeAmount] = useState(1);
   // Filter out the payment modes that are already selected
   const availablePaymentModes = useMemo(
     () =>
@@ -29,6 +31,22 @@ const PriceField: React.FC<PriceFieldProps> = ({ field, index, control, removeSe
       ),
     [paymentModes, servicePrices],
   );
+
+  const handleServicePrice = (
+    e: { target: { value: string } },
+    field: {
+      onChange: any;
+      onBlur?: Noop;
+      value?: number;
+      disabled?: boolean;
+      name?: `servicePrices.${number}.price`;
+      ref?: RefCallBack;
+    },
+  ) => {
+    field.onChange(parseFloat(e.target.value));
+    let computed = parseFloat(e.target.value) * rate.data.rate_amount;
+    setExchangeAmount(computed);
+  };
 
   return (
     <div key={field.id} className={styles.paymentMethods}>
@@ -58,10 +76,12 @@ const PriceField: React.FC<PriceFieldProps> = ({ field, index, control, removeSe
           name={`servicePrices.${index}.price`}
           control={control}
           render={({ field }) => (
-            <NumberInput
-              onChange={(e) => field.onChange(parseFloat(e.target.value))}
+            <TextInput
+              onChange={(e: { target: { value: string } }) => {
+                handleServicePrice(e, field);
+              }}
               type="number"
-              labelText={t('price', 'Price')}
+              labelText={t('usCurrency', 'USD')}
               placeholder={t('enterPrice', 'Enter price')}
               defaultValue={field.value}
               invalid={!!errors?.servicePrices?.[index]?.price}
@@ -69,6 +89,15 @@ const PriceField: React.FC<PriceFieldProps> = ({ field, index, control, removeSe
             />
           )}
         />
+      </ResponsiveWrapper>
+      <ResponsiveWrapper>
+        <p style={{ color: 'red' }}>
+          Exchange Rate:{' '}
+          {exchangeAmount.toLocaleString('en-ZW', {
+            style: 'currency',
+            currency: 'ZWL',
+          })}
+        </p>
       </ResponsiveWrapper>
       <IconButton
         kind="danger--tertiary"
