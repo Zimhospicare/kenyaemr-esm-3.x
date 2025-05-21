@@ -12,7 +12,8 @@ import { usePaymentsReconciler } from '../hooks/use-payments-reconciler';
 import { LineItem } from '../types';
 import QuotationTable from './quotation-table.component';
 import styles from './quotation.scss';
-import PrintableQuotation from './printable-quotation/printable-quotation.component';
+
+import { PrintableQuotation } from './printable-quotation/printable-quotation.component';
 
 interface quotationDetailsProps {
   label: string;

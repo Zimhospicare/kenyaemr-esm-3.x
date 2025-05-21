@@ -1,5 +1,5 @@
-import React, { useCallback } from 'react';
-import { Controller, FieldArrayWithId, UseFieldArrayRemove, useFieldArray, useFormContext } from 'react-hook-form';
+import React, { useCallback, useState } from 'react';
+import { Controller, FieldArrayWithId, UseFieldArrayRemove, useFormContext, Noop, RefCallBack } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { TrashCan, Add } from '@carbon/react/icons';
 import { Button, Dropdown, NumberInputSkeleton, TextInput, NumberInput } from '@carbon/react';
@@ -11,7 +11,7 @@ import { PaymentFormValue, PaymentMethod } from '../../../types';
 type PaymentFormProps = {
   disablePayment: boolean;
   amountDue: number;
-  append: (obj: { method: PaymentMethod; amount: number; referenceCode: string }) => void;
+  append: (obj: { method: PaymentMethod; amount: number; currency: string; referenceCode: string }) => void;
   fields: FieldArrayWithId<PaymentFormValue, 'payment', 'id'>[];
   remove: UseFieldArrayRemove;
 };
@@ -25,7 +25,10 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ disablePayment, amountDue, ap
     getValues,
   } = useFormContext<PaymentFormValue>();
   const { paymentModes, isLoading, error } = usePaymentModes();
-
+  const [currencies] = useState([
+    { uuid: 'b3f3400f-16aa-4fdb-85b4-951e15b06aa9', name: 'usd' },
+    { uuid: '41d4680b-5289-4454-a44b-0c4008871166', name: 'zwl' },
+  ]);
   const shouldShowReferenceCode = (index: number) => {
     const formValues = getValues();
     const attributes = formValues?.payment?.[index]?.method?.attributeTypes ?? [];
@@ -33,7 +36,7 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ disablePayment, amountDue, ap
   };
 
   const handleAppendPaymentMode = useCallback(() => {
-    append({ method: null, amount: 0, referenceCode: '' });
+    append({ method: null, amount: 0, currency: currencies[0].uuid, referenceCode: '' });
     setFocus(`payment.${fields.length}.method`);
   }, [append, fields.length, setFocus]);
 
@@ -50,6 +53,20 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ disablePayment, amountDue, ap
       </div>
     );
   }
+
+  const handlePaymentAmount = (
+    e: { target: { value: any } },
+    field: {
+      onChange: any;
+      onBlur?: Noop;
+      value?: string | number;
+      disabled?: boolean;
+      name?: `payment.${number}.amount`;
+      ref?: RefCallBack;
+    },
+  ) => {
+    field.onChange(Number(e.target.value));
+  };
 
   return (
     <div className={styles.container}>
@@ -77,12 +94,32 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ disablePayment, amountDue, ap
           />
           <Controller
             control={control}
+            name={`payment.${index}.currency`}
+            render={({ field }) => (
+              <Dropdown
+                {...field}
+                id="currency"
+                onChange={({ selectedItem }) => {
+                  setFocus(`payment.${index}.amount`);
+                  field.onChange(selectedItem.uuid);
+                }}
+                titleText={t('currency', 'Currency')}
+                label={t('selectCurrency', 'Select Currency')}
+                items={currencies}
+                itemToString={(item) => (item ? item.name : '')}
+                invalid={!!errors?.payment?.[index]?.method}
+                invalidText={errors?.payment?.[index]?.method?.message}
+              />
+            )}
+          />
+          <Controller
+            control={control}
             name={`payment.${index}.amount`}
             render={({ field }) => (
               <NumberInput
                 {...field}
                 id="paymentAmount"
-                onChange={(e) => field.onChange(Number(e.target.value))}
+                onChange={(e) => handlePaymentAmount(e, field)}
                 invalid={!!errors?.payment?.[index]?.amount}
                 invalidText={errors?.payment?.[index]?.amount?.message}
                 label={t('amount', 'Amount')}

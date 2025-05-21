@@ -65,7 +65,7 @@ const ChargeSummaryTable: React.FC = () => {
     },
     {
       key: 'servicePrices',
-      header: t('prices', 'Prices'),
+      header: t('prices', 'Prices(USD)'),
     },
   ];
 

@@ -24,7 +24,7 @@ type PrintableQuotationProps = {
   facilityInfo: Record<string, any>;
 };
 
-const PrintableQuotation = React.forwardRef<HTMLDivElement, PrintableQuotationProps>(
+export const PrintableQuotation = React.forwardRef<HTMLDivElement, PrintableQuotationProps>(
   ({ bill, patient, facilityInfo }, ref) => {
     const { t } = useTranslation();
     const headerData = [
@@ -48,9 +48,7 @@ const PrintableQuotation = React.forwardRef<HTMLDivElement, PrintableQuotationPr
       }) ?? [];
 
     const quotationTotal = {
-      'Total Amount': convertToCurrency(bill?.totalAmount),
-      'Discount Amount': convertToCurrency(0),
-      'Amount due': convertToCurrency(bill?.totalAmount - bill?.tenderedAmount),
+      'Total Quotation Amount': convertToCurrency(bill?.totalAmount),
     };
 
     const patientDetails = useMemo(() => {
@@ -63,7 +61,6 @@ const PrintableQuotation = React.forwardRef<HTMLDivElement, PrintableQuotationPr
         subCounty: patient?.address?.[0].state,
       };
     }, [patient, t]);
-
     const quotationDetails = {
       'Quotation No #': bill.receiptNumber,
       'Quotation date': formatDatetime(parseDate(bill.dateCreated), { mode: 'standard', noToday: true }),
@@ -128,5 +125,3 @@ const PrintableQuotation = React.forwardRef<HTMLDivElement, PrintableQuotationPr
     );
   },
 );
-
-export default PrintableQuotation;
