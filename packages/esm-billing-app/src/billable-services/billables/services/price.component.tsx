@@ -73,6 +73,13 @@ const PriceField: React.FC<PriceFieldProps> = ({ field, index, control, removeSe
       </ResponsiveWrapper>
       <ResponsiveWrapper>
         <Controller
+          name={`servicePrices.${index}.uuid`}
+          control={control}
+          render={({ field }) => (
+            <TextInput type="hidden" labelText="" defaultValue={field.value} invalid="" invalidText="" />
+          )}
+        />
+        <Controller
           name={`servicePrices.${index}.price`}
           control={control}
           render={({ field }) => (
