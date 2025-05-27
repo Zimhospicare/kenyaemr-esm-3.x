@@ -1,44 +1,44 @@
-#name: E2E Tests
-#
-#on:
-#  push:
-#    branches:
-#      - main
-#  pull_request:
-#    branches:
-#      - main
-#
-#jobs:
-#  main:
-#    runs-on: ubuntu-latest
-#    permissions:
-#      contents: read
-#      actions: write
-#    steps:
-#      - name: Checkout repo
-#        uses: actions/checkout@v4
-#
-#      - name: Copy test environment variables
-#        run: |
-#          cp example.env .env
-#          sed -i 's/8080/8180/g' .env
-#
-#      - name: Setup node
-#        uses: actions/setup-node@v4
-#        with:
-#          node-version: 18
-#
-#      - name: Cache dependencies
-#        id: cache
-#        uses: actions/cache@v4
-#        with:
-#          path: '**/node_modules'
-#          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
-#
-#      - name: Install dependencies
-#        if: steps.cache.outputs.cache-hit != 'true'
-#        run: yarn install --immutable
-#
+name: E2E Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  main:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: write
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Copy test environment variables
+        run: |
+          cp example.env .env
+          sed -i 's/8080/8180/g' .env
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Cache dependencies
+        id: cache
+        uses: actions/cache@v4
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: yarn install --immutable
+
 #      - name: Install Playwright Browsers
 #        run: npx playwright install chromium --with-deps
 #
