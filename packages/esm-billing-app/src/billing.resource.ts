@@ -43,6 +43,7 @@ export const mapBillProperties = (bill: PatientInvoice): MappedBill => {
     cashPointName: bill?.cashPoint?.name,
     cashPointLocation: bill?.cashPoint?.location?.display,
     dateCreated: bill?.dateCreated ? formatDate(parseDate(bill?.dateCreated), { mode: 'wide' }) : '--',
+    quotaValidityDate: bill?.quotaValidityDate ? formatDate(parseDate(bill?.dateCreated), { mode: 'wide' }) : '--',
     dateCreatedUnformatted: bill?.dateCreated,
     lineItems: bill?.lineItems.filter((li) => !li?.voided),
     billingService: extractString(
@@ -137,6 +138,7 @@ export const useBill = (billUuid: string) => {
       cashPointName: bill?.cashPoint?.name,
       cashPointLocation: bill?.cashPoint?.location?.display,
       dateCreated: bill?.dateCreated ?? '--',
+      quotaValidityDate: bill?.quotaValidityDate ?? '--',
       dateCreatedUnformatted: bill?.dateCreated,
       lineItems: bill?.lineItems,
       billingService: bill?.lineItems.map((bill) => bill?.item).join(' '),

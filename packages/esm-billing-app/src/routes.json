@@ -227,6 +227,11 @@
       "name": "cancel-line-item",
       "component": "cancelLineItem",
       "slot": "bill-actions-overflow-menu-slot"
+    },
+    {
+      "name": "edit-quotation-item",
+      "component": "editQuotationItem",
+      "slot": "quotation-actions-overflow-menu-slot"
     }
   ],
   "workspaces": [
@@ -271,6 +276,12 @@
       "name": "cancel-bill-workspace",
       "component": "cancelBillWorkspace",
       "title": "Cancel Bill Workspace",
+      "type": "other-form"
+    },
+    {
+      "name": "edit-quote-form",
+      "component": "editQuoteForm",
+      "title": "Edit Quote Form",
       "type": "other-form"
     }
   ],

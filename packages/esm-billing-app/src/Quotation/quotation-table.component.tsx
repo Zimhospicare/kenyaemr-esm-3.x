@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next';
 import fuzzy from 'fuzzy';
 import {
   DataTable,
+  type DataTableHeader,
+  type DataTableRow,
   DataTableSkeleton,
   Layer,
   Table,
@@ -15,13 +17,10 @@ import {
   TableToolbar,
   TableToolbarContent,
   TableToolbarSearch,
-  TableSelectRow,
   Tile,
-  type DataTableHeader,
-  type DataTableRow,
 } from '@carbon/react';
-import { isDesktop, useDebounce, useLayoutType } from '@openmrs/esm-framework';
-import { LineItem, MappedBill, PaymentStatus } from '../types';
+import { ExtensionSlot, isDesktop, useDebounce, useLayoutType } from '@openmrs/esm-framework';
+import { LineItem, MappedBill } from '../types';
 import styles from './quotation-table.scss';
 
 type QuotationTableProps = {
@@ -33,7 +32,8 @@ type QuotationTableProps = {
 
 const QuotationTable: React.FC<QuotationTableProps> = ({ bill, isSelectable = true, isLoadingBill, onSelectItem }) => {
   const { t } = useTranslation();
-  const { lineItems } = bill;
+  const lineItems = bill.lineItems;
+
   const paidLineItems = lineItems?.filter((item) => item.paymentStatus === 'PAID') ?? [];
   const layout = useLayoutType();
   const responsiveSize = isDesktop(layout) ? 'sm' : 'lg';
@@ -136,39 +136,37 @@ const QuotationTable: React.FC<QuotationTableProps> = ({ bill, isSelectable = tr
             <Table {...getTableProps()} aria-label="Quotation line items" className={styles.table}>
               <TableHead>
                 <TableRow>
-                  {rows.length > 1 && isSelectable ? <TableHeader /> : null}
                   {headers.map((header) => (
                     <TableHeader key={header.key}>{header.header}</TableHeader>
                   ))}
+                  <TableHeader key={'action'}>Action</TableHeader>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {rows.map((row, index) => {
+                  const lineItem = lineItems[index];
                   return (
                     <TableRow
                       key={row.id}
                       {...getRowProps({
                         row,
                       })}>
-                      {rows.length > 1 && isSelectable && (
-                        <TableSelectRow
-                          aria-label="Select row"
-                          {...getSelectionProps({ row })}
-                          disabled={
-                            tableRows[index].status === PaymentStatus.PAID ||
-                            tableRows[index].status === PaymentStatus.EXEMPTED
-                          }
-                          onChange={(checked: boolean) => handleRowSelection(row, checked)}
-                          checked={
-                            tableRows[index].status === PaymentStatus.PAID ||
-                            tableRows[index].status === PaymentStatus.EXEMPTED ||
-                            Boolean(selectedLineItems?.find((item) => item?.uuid === row?.id))
-                          }
-                        />
-                      )}
                       {row.cells.map((cell) => (
                         <TableCell key={cell.id}>{cell.value}</TableCell>
                       ))}
+                      <TableCell>
+                        <ExtensionSlot
+                          style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'flex-start',
+                            height: '3em',
+                          }}
+                          className="cds--overflow-menu-options__option"
+                          name="quotation-actions-overflow-menu-slot"
+                          state={{ lineItem, bill }}
+                        />
+                      </TableCell>
                     </TableRow>
                   );
                 })}
