@@ -13,6 +13,7 @@ export interface MappedBill {
   status: PaymentStatus;
   identifier: string;
   dateCreated: string;
+  quotaValidityDate: string;
   dateCreatedUnformatted: string;
   lineItems: Array<LineItem>;
   billingService: string;
@@ -128,6 +129,7 @@ export interface PatientInvoice {
   cashPoint: CashPoint;
   cashier: Provider;
   dateCreated: string;
+  quotaValidityDate: string;
   lineItems: LineItem[];
   patient: Patient;
   payments: Payment[];

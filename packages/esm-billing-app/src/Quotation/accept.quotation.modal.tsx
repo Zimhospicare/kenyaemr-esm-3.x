@@ -48,7 +48,7 @@ export const AcceptQuotationModal: React.FC<AcceptQuotationModalProps> = ({ clos
         <Button kind="secondary" onClick={closeModal} type="button">
           {t('cancel', 'Cancel')}
         </Button>
-        <Button type="submit" onClick={onContinue} kind="danger">
+        <Button type="submit" onClick={onContinue} kind="primary">
           {isSubmitting ? (
             <>
               <Loading withOverlay={false} small />

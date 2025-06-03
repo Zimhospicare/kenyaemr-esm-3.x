@@ -43,6 +43,8 @@ import { ClockOut } from './payment-points/payment-point/clock-out.modal';
 import RequirePaymentModal from './prompt-payment/prompt-payment-modal.component';
 import { AcceptQuotationModal } from './Quotation/accept.quotation.modal';
 
+import { EditQuoteForm } from './Quotation/workspaces/edit-quote/edit-quote-form.workspace';
+import EditQuotationItemComponent from './Quotation/quotation-actions/edit-quotation-item.component';
 import rootComponent from './root.component';
 
 const moduleName = '@zimhospicare/esm-billing-app';
@@ -223,3 +225,6 @@ export const deleteBillActionButton = getSyncLifecycle(DeleteBillActionButton, o
 export const refundLineItem = getSyncLifecycle(RefundLineItem, options);
 export const cancelLineItem = getSyncLifecycle(CancelLineItem, options);
 export const editLineItem = getSyncLifecycle(EditLineItem, options);
+
+export const editQuotationItem = getSyncLifecycle(EditQuotationItemComponent, options);
+export const editQuoteForm = getSyncLifecycle(EditQuoteForm, options);
