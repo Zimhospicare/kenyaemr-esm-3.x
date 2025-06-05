@@ -1,7 +1,7 @@
 @use '@carbon/layout';
 @use '@carbon/type';
 @use '@carbon/colors';
-@use '~@openmrs/esm-styleguide/src/vars';
+@use '~@openmrs/esm-styleguide/src/vars' as var;
 
 .formButton {
   height: layout.$spacing-09;

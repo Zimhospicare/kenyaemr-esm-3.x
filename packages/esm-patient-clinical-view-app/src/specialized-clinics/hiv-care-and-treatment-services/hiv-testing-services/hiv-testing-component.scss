@@ -1,8 +1,8 @@
 @use '@carbon/styles/scss/spacing';
-@use '~@openmrs/esm-styleguide/src/vars';
+@use '~@openmrs/esm-styleguide/src/vars' as var;
 
 .widgetContainer {
-  background-color: $ui-background;
+  background-color: var.$ui-background;
 }
 
 .widgetHeaderContainer {
@@ -52,7 +52,7 @@
 }
 
 .widgetCard {
-  background-color: $ui-background;
-  border: 1px solid $ui-03;
+  background-color: var.$ui-background;
+  border: 1px solid var.$ui-03;
   position: relative;
 }

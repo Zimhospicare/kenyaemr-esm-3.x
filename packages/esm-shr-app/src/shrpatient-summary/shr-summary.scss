@@ -1,7 +1,7 @@
 @use '@carbon/styles/scss/type';
 @use '@carbon/styles/scss/spacing';
 @use '@carbon/colors';
-@use '~@openmrs/esm-styleguide/src/vars';
+@use '~@openmrs/esm-styleguide/src/vars' as var;
 
 .bodyContainer {
   margin: spacing.$spacing-03;
@@ -10,14 +10,14 @@
 .desktopHeading {
   h4 {
     @include type.type-style('heading-compact-02');
-    color: $text-02;
+    color: var.$text-02;
   }
 }
 
 .tabletHeading {
   h4 {
     @include type.type-style('heading-03');
-    color: $text-02;
+    color: var.$text-02;
   }
 }
 
@@ -47,7 +47,7 @@
 }
 
 .card {
-  background-color: $ui-02;
+  background-color: var.$ui-02;
   padding: spacing.$spacing-04;
 }
 
@@ -58,7 +58,7 @@
 
 .label {
   @include type.type-style('label-01');
-  color: $text-02;
+  color: var.$text-02;
 }
 
 .container {
@@ -96,7 +96,7 @@
 
   :global(.cds--tabs--scrollable .cds--tabs--scrollable__nav-link) {
     border-bottom: 0 !important;
-    border-left: 2px solid $color-gray-30;
+    border-left: 2px solid var.$color-gray-30;
   }
 }
 
@@ -118,7 +118,7 @@
 
   &[aria-selected='false'] {
     border-bottom: none;
-    border-left: 2px solid $ui-03;
+    border-left: 2px solid var.$ui-03;
     margin-left: 0rem !important;
   }
 }
@@ -152,13 +152,13 @@
 }
 
 .tabContent {
-  border-top: 1px solid $ui-03;
+  border-top: 1px solid var.$ui-03;
   padding: 1rem 0;
   width: 70%;
 }
 
 .summaryContainer {
-  background-color: $ui-background;
+  background-color: var.$ui-background;
   display: grid;
   grid-template-columns: max-content auto;
   padding: 1rem 0rem;

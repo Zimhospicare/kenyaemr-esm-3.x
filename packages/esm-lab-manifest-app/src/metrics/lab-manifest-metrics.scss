@@ -1,7 +1,7 @@
 @use '@carbon/styles/scss/spacing';
 @use '@carbon/colors';
 @use '@carbon/styles/scss/type';
-@use '~@openmrs/esm-styleguide/src/vars';
+@use '~@openmrs/esm-styleguide/src/vars' as var;
 
 .cardContainer {
   display: flex;
@@ -64,7 +64,7 @@
 
 .metricDanger {
   font-size: 0.625rem !important;
-  color: $danger;
+  color: var.$danger;
 }
 
 .metricWarning {

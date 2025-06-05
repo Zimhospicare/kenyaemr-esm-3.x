@@ -2,7 +2,7 @@
 @use '@carbon/styles/scss/type';
 @use '@carbon/layout';
 @use '@carbon/colors';
-@use '~@openmrs/esm-styleguide/src/vars';
+@use '~@openmrs/esm-styleguide/src/vars' as var;
 
 .loading {
   display: flex;
@@ -40,7 +40,7 @@
 .buttonSet {
   width: 100%;
   padding-top: spacing.$spacing-05;
-  background-color: $ui-02;
+  background-color: var.$ui-02;
   justify-content: space-between;
   bottom: 0;
   position: absolute;

@@ -1,9 +1,10 @@
 @use '@carbon/styles/scss/spacing';
 @use '@carbon/styles/scss/type';
 @use '../../root.scss';
+@use '@openmrs/esm-styleguide/src/vars' as var;
 
 .widgetContainer {
-  background-color: $ui-background;
+  background-color: var.$ui-background;
   border: 1px solid #e0e0e0;
   margin-bottom: 1rem;
 }
@@ -23,7 +24,7 @@
 
 .content {
   @extend .productiveHeading01;
-  color: $text-02;
+  color: var.$text-02;
   margin-top: spacing.$spacing-05;
   margin-bottom: spacing.$spacing-03;
 }
@@ -35,7 +36,7 @@
 
   h4 {
     @include type.type-style('heading-compact-02');
-    color: $text-02;
+    color: var.$text-02;
 
     &:after {
       content: '';
@@ -43,19 +44,19 @@
       width: 2rem;
       padding-top: 3px;
       border-bottom: 0.375rem solid;
-      @include brand-03(border-bottom-color);
+      @include var.brand-03(border-bottom-color);
     }
   }
 }
 .widgetCard {
-  background-color: $ui-background;
-  border: 1px solid $ui-03;
+  background-color: var.$ui-background;
+  border: 1px solid var.$ui-03;
 }
 
 .divider {
   width: 1px;
   height: 1rem;
-  color: $ui-03;
+  color: var.$ui-03;
   margin: 0rem 0.5rem;
 }
 .toggleButtons {
@@ -63,31 +64,31 @@
   margin: 0 spacing.$spacing-03;
 
   button {
-    color: $interactive-01;
+    color: var.$interactive-01;
     min-height: 0px;
 
     &:global(.cds--btn--tertiary) {
-      border-color: $interactive-01;
+      border-color: var.$interactive-01;
     }
 
     &:global(.cds--tooltip__trigger:active:not([disabled])) {
-      border-color: $interactive-01;
+      border-color: var.$interactive-01;
     }
 
     &:global(.cds--btn--tertiary:active) {
-      border-color: $interactive-01;
+      border-color: var.$interactive-01;
       background-color: #edf5ff;
       color: #edf5ff;
     }
 
     &:global(.cds--btn--tertiary:focus) {
-      background-color: $interactive-01;
-      color: $ui-background;
+      background-color: var.$interactive-01;
+      color: var.$ui-background;
     }
 
     &:global(.cds--btn--tertiary:hover) {
-      color: $ui-background;
-      background-color: $interactive-01;
+      color: var.$ui-background;
+      background-color: var.$interactive-01;
     }
 
     &:global(.cds--btn--ghost) {
@@ -96,7 +97,7 @@
 
     &:global(.cds--btn--ghost:hover) {
       color: #000;
-      background-color: $ui-01;
+      background-color: var.$ui-01;
     }
   }
 }

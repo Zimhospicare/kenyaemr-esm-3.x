@@ -1,6 +1,6 @@
 @use '@carbon/styles/scss/spacing';
 @use '@carbon/styles/scss/type';
-@use '@openmrs/esm-styleguide/src/vars' as *;
+@use '@openmrs/esm-styleguide/src/vars' as var;
 
 .tableContainer {
   padding: 0;
@@ -32,6 +32,6 @@
   }
 
   > div {
-    background-color: $ui-02;
+    background-color: var.$ui-02;
   }
 }

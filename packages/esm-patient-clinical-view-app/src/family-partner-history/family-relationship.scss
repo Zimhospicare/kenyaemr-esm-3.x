@@ -1,7 +1,7 @@
 @use '@carbon/styles/scss/spacing';
 @use '@carbon/styles/scss/type';
 @use '@carbon/layout';
-@use '~@openmrs/esm-styleguide/src/vars';
+@use '~@openmrs/esm-styleguide/src/vars' as var;
 
 .heading {
   @include type.type-style('heading-compact-01');
@@ -9,14 +9,14 @@
 }
 
 .warningContainer {
-  background-color: $carbon--red-50;
+  background-color: var.$carbon--red-50;
   padding: spacing.$spacing-04;
   margin: spacing.$spacing-03 0 spacing.$spacing-03;
   display: flex;
   justify-content: space-between;
   .warning {
     @include type.type-style('heading-compact-01');
-    color: $ui-05;
+    color: var.$ui-05;
   }
 }
 
@@ -93,7 +93,7 @@
 
   .buttonSet {
     padding: spacing.$spacing-06 spacing.$spacing-05;
-    background-color: $ui-02;
+    background-color: var.$ui-02;
     justify-content: flex-end;
     gap: spacing.$spacing-05;
     padding: 0;

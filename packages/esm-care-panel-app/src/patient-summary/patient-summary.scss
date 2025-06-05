@@ -1,7 +1,7 @@
 @use '@carbon/styles/scss/type';
 @use '@carbon/styles/scss/spacing';
 @use '@carbon/colors';
-@use '~@openmrs/esm-styleguide/src/vars';
+@use '~@openmrs/esm-styleguide/src/vars' as var;
 
 .bodyContainer {
   margin: spacing.$spacing-03;
@@ -11,14 +11,14 @@
 .desktopHeading {
   h4 {
     @include type.type-style('heading-compact-02');
-    color: $text-02;
+    color: var.$text-02;
   }
 }
 
 .tabletHeading {
   h4 {
     @include type.type-style('heading-03');
-    color: $text-02;
+    color: var.$text-02;
   }
 }
 
@@ -48,7 +48,7 @@
 }
 
 .card {
-  background-color: $ui-02;
+  background-color: var.$ui-02;
   padding: spacing.$spacing-04;
 }
 
@@ -59,7 +59,7 @@
 
 .label {
   @include type.type-style('label-01');
-  color: $text-02;
+  color: var.$text-02;
 }
 
 .container {

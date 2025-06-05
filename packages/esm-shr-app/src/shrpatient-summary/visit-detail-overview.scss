@@ -1,17 +1,17 @@
 @use '@carbon/styles/scss/spacing';
 @use '@carbon/styles/scss/type';
-@use '~@openmrs/esm-styleguide/src/vars';
+@use '~@openmrs/esm-styleguide/src/vars' as var;
 @use './root.scss';
 
 .visitType {
   @include type.type-style('heading-compact-02');
-  color: $text-02;
+  color: var.$text-02;
   margin-bottom: 5px;
 }
 
 .date {
   @include type.type-style('body-compact-01');
-  color: $text-02;
+  color: var.$text-02;
   padding-right: 0.625rem;
 }
 
@@ -26,8 +26,8 @@
 }
 
 .container {
-  background-color: $ui-background;
-  border: 1px solid $grey-2;
+  background-color: var.$ui-background;
+  border: 1px solid var.$grey-2;
   padding: 1rem;
   margin: 1rem 0rem 1rem;
   width: 100%;
@@ -73,13 +73,13 @@
   border: 1px solid #a6c8ff;
 
   &:hover {
-    background-color: $color-blue-10;
+    background-color: var.$color-blue-10;
   }
 
   &:active,
   &:focus {
     box-shadow: none;
-    background-color: $color-blue-10;
+    background-color: var.$color-blue-10;
   }
 
   &:first-of-type {
@@ -124,7 +124,7 @@
 }
 
 .tabContent {
-  border-top: 1px solid $ui-03;
+  border-top: 1px solid var.$ui-03;
   padding: 1rem 0;
   width: 70%;
 }
@@ -134,11 +134,11 @@
   flex-flow: row wrap;
   align-items: center;
   @include type.type-style('body-01');
-  color: $text-02;
+  color: var.$text-02;
 }
 
 .medicationContainer {
-  background-color: $ui-01;
+  background-color: var.$ui-01;
   padding: 1rem;
   width: 100% !important;
 }
@@ -159,7 +159,7 @@
 }
 
 .noteText {
-  background-color: $ui-01;
+  background-color: var.$ui-01;
   padding: 1rem;
   width: 100% !important;
   white-space: pre-wrap;
@@ -167,7 +167,7 @@
 
 .metadata {
   @include type.type-style('label-01');
-  color: $text-02;
+  color: var.$text-02;
   margin: spacing.$spacing-02 0;
 }
 

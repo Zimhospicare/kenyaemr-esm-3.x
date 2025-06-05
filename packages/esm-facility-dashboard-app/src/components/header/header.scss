@@ -1,14 +1,14 @@
 @use '@carbon/layout';
 @use '@carbon/type';
 @use '@carbon/colors';
-@use '~@openmrs/esm-styleguide/src/vars';
+@use '~@openmrs/esm-styleguide/src/vars' as var;
 
 .header {
   @include type.type-style('body-compact-02');
-  color: $text-02;
+  color: var.$text-02;
   height: layout.$spacing-12;
-  background-color: $ui-02;
-  border: 1px solid $ui-03;
+  background-color: var.$ui-02;
+  border: 1px solid var.$ui-03;
   border-left: 0px;
   display: flex;
   justify-content: space-between;
@@ -24,7 +24,7 @@
 
 .rightJustifiedItems {
   @include type.type-style('body-compact-02');
-  color: $text-02;
+  color: var.$text-02;
   padding-top: 1rem;
 }
 
@@ -60,8 +60,8 @@
 }
 
 svg.iconOverrides {
-  width: 72 !important;
-  height: 72 !important;
+  width: 72px !important;
+  height: 72px !important;
   fill: var(--brand-03);
 }
 

@@ -1,8 +1,8 @@
 @use '@carbon/styles/scss/spacing';
-@use '~@openmrs/esm-styleguide/src/vars';
+@use '~@openmrs/esm-styleguide/src/vars' as var;
 
 .cardContainer {
-  background-color: $ui-02;
+  background-color: var.$ui-02;
   display: flex;
   justify-content: space-between;
   padding: 0 spacing.$spacing-05 spacing.$spacing-07 spacing.$spacing-03;

@@ -1,7 +1,7 @@
 @use '@carbon/colors';
 @use '@carbon/layout';
 @use '@carbon/type';
-@use '~@openmrs/esm-styleguide/src/vars';
+@use '~@openmrs/esm-styleguide/src/vars' as var;
 
 .widgetContainer {
   background-color: colors.$white;
@@ -50,7 +50,7 @@
       width: layout.$spacing-01;
       padding-top: layout.$spacing-03;
       border-bottom: layout.$spacing-01 solid;
-      @include brand-03(border-bottom-color);
+      @include var.brand-03(border-bottom-color);
     }
   }
 }

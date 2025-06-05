@@ -1,13 +1,13 @@
 @use '@carbon/styles/scss/type';
 @use '@carbon/styles/scss/spacing';
 @use '@carbon/colors';
-@use '~@openmrs/esm-styleguide/src/vars';
+@use '~@openmrs/esm-styleguide/src/vars' as var;
 
 .desktopHeading {
   h4 {
     @include type.type-style('heading-compact-02');
-    color: $text-02;
-    background-color: $ui-background;
+    color: var.$text-02;
+    background-color: var.$ui-background;
     padding-top: spacing.$spacing-02;
   }
 }
@@ -15,7 +15,7 @@
 .tabletHeading {
   h4 {
     @include type.type-style('heading-03');
-    color: $text-02;
+    color: var.$text-02;
   }
 }
 
@@ -25,7 +25,7 @@
   justify-content: space-between;
   text-align: left;
   text-transform: capitalize;
-  background-color: $ui-background;
+  background-color: var.$ui-background;
   padding-top: spacing.$spacing-02;
   padding-bottom: spacing.$spacing-03;
 }
@@ -37,7 +37,7 @@
 }
 
 .card {
-  background-color: $ui-02;
+  background-color: var.$ui-02;
   padding: spacing.$spacing-03;
 }
 

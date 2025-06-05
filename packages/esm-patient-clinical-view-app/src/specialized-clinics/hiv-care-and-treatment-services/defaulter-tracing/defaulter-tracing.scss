@@ -1,5 +1,5 @@
-@use '@openmrs/esm-styleguide/src/vars' as *;
+@use '@openmrs/esm-styleguide/src/vars' as var;
 
 .widgetCard {
-  border: 1px solid $ui-03;
+  border: 1px solid var.$ui-03;
 }
