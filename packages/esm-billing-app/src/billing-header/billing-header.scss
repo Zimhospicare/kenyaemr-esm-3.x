@@ -1,13 +1,13 @@
 @use '@carbon/layout';
 @use '@carbon/type';
-@use '@openmrs/esm-styleguide/src/vars' as *;
+@use '@openmrs/esm-styleguide/src/vars' as var;
 
 .header {
   @include type.type-style('body-compact-02');
-  color: $text-02;
+  color: var.$text-02;
   height: layout.$spacing-12;
-  background-color: $ui-02;
-  border-bottom: 1px solid $ui-03;
+  background-color: var.$ui-02;
+  border-bottom: 1px solid var.$ui-03;
   display: flex;
   justify-content: space-between;
   padding: layout.$spacing-05;
@@ -23,7 +23,7 @@
 
 .right-justified-items {
   @include type.type-style('body-compact-02');
-  color: $text-02;
+  color: var.$text-02;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -78,6 +78,6 @@ html[dir='rtl'] {
 }
 
 .userIcon {
-  fill: $ui-05;
+  fill: var.$ui-05;
   margin: layout.$spacing-01;
 }

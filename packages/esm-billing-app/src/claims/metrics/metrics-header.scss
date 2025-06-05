@@ -1,6 +1,6 @@
 @use '@carbon/layout';
 @use '@carbon/type';
-@use '@openmrs/esm-styleguide/src/vars' as *;
+@use '@openmrs/esm-styleguide/src/vars' as var;
 
 .metricsContainer {
   display: flex;
@@ -12,5 +12,5 @@
 
 .metricsTitle {
   @include type.type-style('heading-03');
-  color: $ui-05;
+  color: var.$ui-05;
 }

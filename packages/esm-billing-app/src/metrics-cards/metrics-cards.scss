@@ -1,7 +1,7 @@
 @use '@carbon/colors';
 @use '@carbon/layout';
 @use '@carbon/type';
-@use '@openmrs/esm-styleguide/src/vars' as *;
+@use '@openmrs/esm-styleguide/src/vars' as var;
 
 .container {
   display: flex;
@@ -21,7 +21,7 @@
 }
 
 .tileContainer {
-  border: 0.0625rem solid $ui-03;
+  border: 0.0625rem solid var.$ui-03;
   height: 7.875rem;
 }
 
@@ -34,17 +34,17 @@
 
 .headerLabel {
   @include type.type-style('heading-compact-01');
-  color: $text-02;
+  color: var.$text-02;
 }
 
 .totalsLabel {
   @include type.type-style('label-01');
-  color: $text-02;
+  color: var.$text-02;
 }
 
 .totalsValue {
   @include type.type-style('heading-04');
-  color: $ui-05;
+  color: var.$ui-05;
 }
 
 .headerLabelContainer {
@@ -65,7 +65,7 @@
   text-decoration: none;
   display: flex;
   align-items: center;
-  color: $interactive-01;
+  color: var.$interactive-01;
 
   svg {
     margin-left: layout.$spacing-03;

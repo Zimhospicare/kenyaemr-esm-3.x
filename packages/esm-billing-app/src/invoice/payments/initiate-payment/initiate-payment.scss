@@ -2,7 +2,7 @@
 @use '@carbon/styles/scss/type';
 @use '@carbon/colors';
 @use '@carbon/layout';
-@import '~@openmrs/esm-styleguide/src/vars';
+@use '~@openmrs/esm-styleguide/src/vars' as var;
 
 .form {
   display: flex;
@@ -17,7 +17,7 @@
 
 .sectionTitle {
   @include type.type-style('heading-compact-02');
-  color: $text-02;
+  color: var.$text-02;
   margin-bottom: spacing.$spacing-04;
 }
 

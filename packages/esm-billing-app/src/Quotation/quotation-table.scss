@@ -1,7 +1,7 @@
 @use '@carbon/colors';
 @use '@carbon/layout';
 @use '@carbon/type';
-@use '@openmrs/esm-styleguide/src/vars' as *;
+@use '@openmrs/esm-styleguide/src/vars' as var;
 
 .filterEmptyState {
   align-items: center;
@@ -18,13 +18,13 @@
 
 .filterEmptyStateContent {
   @include type.type-style('heading-compact-02');
-  color: $text-02;
+  color: var.$text-02;
   margin-bottom: 0.5rem;
 }
 
 .filterEmptyStateHelper {
   @include type.type-style('body-compact-01');
-  color: $text-02;
+  color: var.$text-02;
 }
 
 .headerContainer {
@@ -33,7 +33,7 @@
 
 .quotationContainer {
   margin: layout.$spacing-05;
-  border: 1px solid $ui-03;
+  border: 1px solid var.$ui-03;
 }
 
 .searchbox {
