@@ -1,7 +1,7 @@
 @use '@carbon/colors';
 @use '@carbon/styles/scss/spacing';
 @use '@carbon/styles/scss/type';
-@use '~@openmrs/esm-styleguide/src/vars';
+@use '~@openmrs/esm-styleguide/src/vars' as var;
 
 .patientInfo {
   display: flex;
@@ -25,7 +25,7 @@
 
 .patientName {
   @include type.type-style('heading-02');
-  color: $text-02;
+  color: var.$text-02;
   margin-bottom: spacing.$spacing-02;
 }
 
@@ -33,7 +33,7 @@
   display: flex;
   align-items: center;
   margin-bottom: spacing.$spacing-02;
-  color: $text-02;
+  color: var.$text-02;
   text-transform: uppercase;
 }
 

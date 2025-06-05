@@ -1,6 +1,6 @@
 @use '@carbon/styles/scss/spacing';
 @use '@carbon/styles/scss/type';
-@use '~@openmrs/esm-styleguide/src/vars';
+@use '~@openmrs/esm-styleguide/src/vars' as var;
 
 .patientChartWrapper {
   display: flex;
@@ -52,11 +52,11 @@
 }
 
 .text01 {
-  color: $ui-05;
+  color: var.$ui-05;
 }
 
 .text02 {
-  color: $text-02;
+  color: var.$text-02;
 }
 
 .label01 {

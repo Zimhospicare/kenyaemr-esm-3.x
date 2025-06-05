@@ -1,7 +1,7 @@
 @use '@carbon/layout';
 @use '@carbon/type';
 @use '@carbon/colors';
-@use '@openmrs/esm-styleguide/src/vars' as *;
+@use '@openmrs/esm-styleguide/src/vars' as var;
 
 .patientName {
   @include type.type-style('label-02');
@@ -36,7 +36,7 @@
   display: flex;
   align-items: center;
   margin-bottom: layout.$spacing-02;
-  color: $text-02;
+  color: var.$text-02;
   text-transform: uppercase;
 }
 

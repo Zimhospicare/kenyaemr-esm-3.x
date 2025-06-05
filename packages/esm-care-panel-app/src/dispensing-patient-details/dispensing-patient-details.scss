@@ -1,7 +1,7 @@
 @use '@carbon/layout';
 @use '@carbon/colors';
 @use '@carbon/type';
-@use '~@openmrs/esm-styleguide/src/vars';
+@use '~@openmrs/esm-styleguide/src/vars' as var;
 
 .container {
   height: layout.$spacing-06;

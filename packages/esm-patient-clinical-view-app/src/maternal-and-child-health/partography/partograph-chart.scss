@@ -1,6 +1,6 @@
 @use '@carbon/styles/scss/spacing';
 @use '@carbon/styles/scss/type';
-@use '~@openmrs/esm-styleguide/src/vars';
+@use '~@openmrs/esm-styleguide/src/vars' as var;
 
 .label01 {
   @include type.type-style('label-01');
@@ -56,7 +56,7 @@
 
   :global(.cds--tabs--scrollable .cds--tabs--scrollable__nav-link) {
     border-bottom: 0 !important;
-    border-left: 2px solid $color-gray-30;
+    border-left: 2px solid var.$color-gray-30;
   }
 }
 
@@ -78,7 +78,7 @@
 
   &[aria-selected='false'] {
     border-bottom: none;
-    border-left: 2px solid $ui-03;
+    border-left: 2px solid var.$ui-03;
     margin-left: 0rem !important;
   }
 }

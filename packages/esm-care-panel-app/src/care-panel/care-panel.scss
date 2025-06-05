@@ -1,14 +1,14 @@
 @use '@carbon/styles/scss/type';
 @use '@carbon/styles/scss/spacing';
-@use '~@openmrs/esm-styleguide/src/vars';
+@use '~@openmrs/esm-styleguide/src/vars' as var;
 
 .bodyShort01 {
   @include type.type-style('body-compact-01');
 }
 
 .widgetCard {
-  background-color: $ui-background;
-  border: 1px solid $ui-03;
+  background-color: var.$ui-background;
+  border: 1px solid var.$ui-03;
   position: relative;
 }
 
@@ -27,14 +27,14 @@
 }
 
 .helperContainer {
-  color: $color-gray-70;
+  color: var.$color-gray-70;
   @extend .bodyShort01;
   text-align: left;
   padding-left: 1.3rem;
 }
 
 .labelRed {
-  color: $danger;
+  color: var.$danger;
 }
 
 .careProgramContainer {

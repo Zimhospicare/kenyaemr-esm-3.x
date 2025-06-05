@@ -1,7 +1,7 @@
 @use '@carbon/styles/scss/type';
 @use '@carbon/styles/scss/spacing';
 @use '@carbon/colors';
-@use '~@openmrs/esm-styleguide/src/vars';
+@use '~@openmrs/esm-styleguide/src/vars' as var;
 
 .bodyShort01 {
   @include type.type-style('body-compact-01');
@@ -10,8 +10,8 @@
 .desktopHeading {
   h4 {
     @include type.type-style('heading-compact-02');
-    color: $text-02;
-    background-color: $ui-background;
+    color: var.$text-02;
+    background-color: var.$ui-background;
     padding-top: spacing.$spacing-02;
   }
 }
@@ -19,7 +19,7 @@
 .tabletHeading {
   text-align: left;
   text-transform: capitalize;
-  background-color: $ui-background;
+  background-color: var.$ui-background;
   padding-top: spacing.$spacing-02;
 }
 .structuredList {
@@ -36,5 +36,5 @@
   :global(.cds--structured-list-td) {
     padding: 0.2rem 0.2rem 0.5rem;
   }
-  background-color: $ui-background;
+  background-color: var.$ui-background;
 }

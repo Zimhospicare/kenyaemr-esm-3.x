@@ -1,11 +1,11 @@
 @use '@carbon/styles/scss/spacing';
 @use '@carbon/styles/scss/type';
-@use '~@openmrs/esm-styleguide/src/vars';
+@use '~@openmrs/esm-styleguide/src/vars' as var;
 
 .metricsContainer {
   display: flex;
   justify-content: space-between;
-  background-color: $ui-02;
+  background-color: var.$ui-02;
   height: spacing.$spacing-10;
   align-items: center;
   padding: 0 spacing.$spacing-05;
@@ -13,7 +13,7 @@
 
 .metricsTitle {
   @include type.type-style('heading-03');
-  color: $ui-05;
+  color: var.$ui-05;
 }
 
 .actionBtn {

@@ -1,6 +1,6 @@
 @use '@carbon/styles/scss/spacing';
 @use '@carbon/styles/scss/type';
-@use '~@openmrs/esm-styleguide/src/vars';
+@use '~@openmrs/esm-styleguide/src/vars' as var;
 
 $ui-01: #f4f4f4;
 $ui-02: #ffffff;
@@ -69,7 +69,7 @@ $button-primary: #0078a6;
 }
 
 .text02 {
-  color: $text-02;
+  color: var.$text-02;
 }
 
 aside {
