@@ -1,6 +1,7 @@
 @use '@carbon/styles/scss/spacing';
 @use '@carbon/styles/scss/type';
 @use '../../root.scss';
+@use '@openmrs/esm-styleguide/src/vars' as var;
 
 .widgetContainer {
   background-color: var.$ui-background;
