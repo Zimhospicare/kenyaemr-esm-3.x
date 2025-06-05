@@ -18,6 +18,8 @@
     "preinstall": "npx only-allow yarn"
   },
   "resolutions": {
+    "webpack": "^5.88.0",
+    "webpack-cli": "^5.1.4",
     "sass": "^1.54.3"
   },
   "lint-staged": {
@@ -94,6 +96,7 @@
     "turbo": "^2.1.3",
     "typescript": "^4.0.3",
     "uuid": "^9.0.1",
+    "webpack": "^5.88.0",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.0.4"
   },
