@@ -2,9 +2,9 @@
 /* tslint:disable */
 export const VERSION = {
   dirty: true,
-  raw: 'v5.4.0-101-g1ee9009-dirty',
-  hash: 'g1ee9009',
-  distance: 101,
+  raw: 'v5.4.0-107-gdde88ac-dirty',
+  hash: 'gdde88ac',
+  distance: 107,
   tag: 'v5.4.0',
   semver: {
     options: {
@@ -20,9 +20,9 @@ export const VERSION = {
     build: [],
     version: '5.4.0',
   },
-  suffix: '101-g1ee9009-dirty',
-  semverString: '5.4.0+101.g1ee9009',
+  suffix: '107-gdde88ac-dirty',
+  semverString: '5.4.0+107.gdde88ac',
   version: '5.4.0',
-  buildDate: '2025-06-05T12:47:42.121Z',
+  buildDate: '2025-06-05T15:10:02.999Z',
 };
 /* tslint:enable */
