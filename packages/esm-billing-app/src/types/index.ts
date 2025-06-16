@@ -494,7 +494,7 @@ export type ExcelFileRow = {
   name: string;
   price: number;
   disable: 'false' | 'true';
-  service_type_id: number;
+  service_type_uuid: string;
   short_name: string;
 };
 
