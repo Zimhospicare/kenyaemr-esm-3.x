@@ -179,7 +179,7 @@ export const getBulkUploadPayloadFromExcelFile = (
             name: 'Cash',
           },
         ],
-        serviceStatus: row.disable === 'false' ? 'DISABLED' : 'ENABLED',
+        serviceStatus: row.disable === 'false' ? 'ENABLED' : 'DISABLED',
         concept: row.concept_id,
       };
     });
