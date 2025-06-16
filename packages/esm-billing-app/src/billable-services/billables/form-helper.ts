@@ -147,7 +147,7 @@ export const getBulkUploadPayloadFromExcelFile = (
     !firstRowKeys.includes('name') ||
     !firstRowKeys.includes('price') ||
     !firstRowKeys.includes('disable') ||
-    !firstRowKeys.includes('service_type_id') ||
+    !firstRowKeys.includes('service_type_uuid') ||
     !firstRowKeys.includes('short_name')
   ) {
     return 'INVALID_TEMPLATE';
@@ -157,7 +157,7 @@ export const getBulkUploadPayloadFromExcelFile = (
 
   const payload = jsonData
     .filter((row) => {
-      if (row.service_type_id.toString().length > 1) {
+      if (row.service_type_uuid.length > 1) {
         return true;
       } else {
         rowsWithMissingCategories.push(row);
@@ -171,7 +171,7 @@ export const getBulkUploadPayloadFromExcelFile = (
       return {
         name: row.name,
         shortName: row.short_name ?? row.name,
-        serviceType: serviceTypes.find((type) => type.id === row.service_type_id).uuid,
+        serviceType: serviceTypes.find((type) => type.uuid === row.service_type_uuid).uuid,
         servicePrices: [
           {
             paymentMode: paymentModes.find((mode) => mode.name === 'Cash').uuid,
@@ -188,7 +188,7 @@ export const getBulkUploadPayloadFromExcelFile = (
 };
 
 export function createExcelTemplateFile(): Uint8Array {
-  const headers = ['concept_id', 'name', 'short_name', 'price', 'disable', 'service_type_id'];
+  const headers = ['concept_id', 'name', 'short_name', 'price', 'disable', 'service_type_uuid'];
 
   const worksheet = XLSX.utils.aoa_to_sheet([headers]);
   const workbook = XLSX.utils.book_new();
@@ -201,7 +201,7 @@ export function createExcelTemplateFile(): Uint8Array {
     { wch: 20 }, // short_name
     { wch: 10 }, // price
     { wch: 10 }, // disable
-    { wch: 20 }, // service_type_id
+    { wch: 20 }, // service_type_uuid
   ];
   worksheet['!cols'] = colWidths;
 
