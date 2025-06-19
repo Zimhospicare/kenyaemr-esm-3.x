@@ -25,7 +25,7 @@ import PriceInfoOrder from './billable-services/billiable-item/test-order/price-
 import ProcedureOrder from './billable-services/billiable-item/test-order/procedure-order.component';
 import TestOrderAction from './billable-services/billiable-item/test-order/test-order-action.component';
 import { BulkImportBillableServices } from './billable-services/bulk-import-billable-service.modal';
-import BillingCheckInForm from './billing-form/billing-checkin-form.component';
+// import BillingCheckInForm from './billing-form/billing-checkin-form.component';
 import BillingForm from './billing-form/billing-form.component';
 import ClaimsManagementOverview from './claims/claims-management/main/claims-overview-main.component';
 import { RetryClaimRequest } from './claims/claims-management/table/retry-claim-request.modal';
@@ -164,7 +164,7 @@ export const benefitsPackageDashboardLink = getSyncLifecycle(
 
 export const root = getSyncLifecycle(rootComponent, options);
 export const billingPatientSummary = getSyncLifecycle(BillHistory, options);
-export const billingCheckInForm = getSyncLifecycle(BillingCheckInForm, options);
+// export const billingCheckInForm = getSyncLifecycle(BillingCheckInForm, options);
 export const deleteBillableServiceModal = getSyncLifecycle(DeleteBillableServiceModal, options);
 export const createBillItemModal = getSyncLifecycle(CreateBillItemModal, options);
 
