@@ -254,15 +254,27 @@ export const processBillItems = (payload) => {
   });
 };
 
-export const usePaymentModes = (excludeWaiver: boolean = true) => {
+export const usePaymentModes = (
+  excludeWaiver: boolean = true,
+  excludeInsurance: boolean = false,
+  insuranceObj: any = {},
+) => {
   const { excludedPaymentMode } = useConfig<BillingConfig>();
+  let updatedExcludedPaymentMode = excludedPaymentMode;
+
+  if (excludeInsurance) {
+    updatedExcludedPaymentMode = [...excludedPaymentMode, insuranceObj];
+  }
+
   const url = `${restBaseUrl}/cashier/paymentMode?v=full`;
   const { data, isLoading, error, mutate } = useSWR<{ data: { results: Array<PaymentMethod> } }>(url, openmrsFetch, {
     errorRetryCount: 2,
   });
   const allowedPaymentModes =
-    excludedPaymentMode?.length > 0
-      ? data?.data?.results.filter((mode) => !excludedPaymentMode.some((excluded) => excluded.uuid === mode.uuid)) ?? []
+    updatedExcludedPaymentMode?.length > 0
+      ? data?.data?.results.filter(
+          (mode) => !updatedExcludedPaymentMode.some((excluded) => excluded.uuid === mode.uuid),
+        ) ?? []
       : data?.data?.results ?? [];
   return {
     paymentModes: excludeWaiver ? allowedPaymentModes : data?.data?.results,

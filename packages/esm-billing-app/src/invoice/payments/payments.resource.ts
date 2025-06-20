@@ -13,6 +13,13 @@ const swrOption = {
   errorRetryCount: 2,
 };
 
+export interface InsuranceScheme {
+  insuranceScheme: string;
+  policyNo: string;
+  hasInsurance: boolean;
+  message: string;
+}
+
 export const usePaymentModes = () => {
   const { excludedPaymentMode } = useConfig<BillingConfig>();
   const url = `/ws/rest/v1/cashier/paymentMode`;
@@ -30,5 +37,17 @@ export const usePaymentModes = () => {
     isLoading,
     mutate,
     error,
+  };
+};
+
+export const usePatientInsuranceScheme = (patientUuid: any) => {
+  const url = `/ws/rest/v1/cashier/insurance-scheme?patientUuid=${patientUuid}`;
+  const { data, error, isLoading, isValidating, mutate } = useSWR<{ data: InsuranceScheme }>(url, openmrsFetch);
+  return {
+    insurance: data?.data,
+    isLoading,
+    isValidating,
+    error,
+    mutate,
   };
 };

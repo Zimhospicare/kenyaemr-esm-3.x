@@ -18,8 +18,9 @@ const PrintableFooter: React.FC<PrintableFooterProps> = ({ facilityInfo }) => {
       <p className={styles.footDescription}>
         {t(
           'generatedMessage',
-          'The invoice has been electronically generated and is a valid document. It was created by {{userName}} on {{date}} at {{time}}',
+          'The {{billType}} has been electronically generated and is a valid document. It was created by {{userName}} on {{date}} at {{time}}',
           {
+            billType: `invoice`,
             userName: `${session?.user?.display}`,
             date: dayjs().format('DD-MM-YYYY'),
             time: dayjs().format('hh:mm A'),
