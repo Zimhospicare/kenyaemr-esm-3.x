@@ -41,7 +41,7 @@ export const PatientBills: React.FC<PatientBillsProps> = ({ bills, onCancel, pat
     return <InlineLoading status="active" description={t('loading', 'Loading...')} />;
   }
 
-  const billingUrl = '${openmrsSpaBase}/home/billing/invoice/${patientUuid}/${uuid}';
+  const billingUrl = '${openmrsSpaBase}/home/billing/patient/${patientUuid}/${uuid}/invoice';
 
   if (bills.length === 0) {
     return (

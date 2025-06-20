@@ -91,7 +91,7 @@ const QuotationsTable: React.FC<BillTableProps> = ({ defaultBillPaymentStatus = 
       '',
     );
 
-  const billingUrl = '${openmrsSpaBase}/home/billing/quotation/${patientUuid}/${uuid}';
+  const billingUrl = '${openmrsSpaBase}/home/billing/patient/${patientUuid}/${uuid}/quotation';
 
   const rowData = results?.map((bill, index) => ({
     id: `${index}`,

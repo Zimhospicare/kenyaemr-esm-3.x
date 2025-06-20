@@ -4,7 +4,7 @@ import { Controller, Noop, RefCallBack, useFormContext, type Control } from 'rea
 import { useTranslation } from 'react-i18next';
 import { useGetCurrentDollarRate, usePaymentModes } from '../../../billing.resource';
 import styles from './service-form.scss';
-import { ComboBox, IconButton, TextInput } from '@carbon/react';
+import { ComboBox, IconButton, NumberInput, TextInput } from '@carbon/react';
 import { TrashCan } from '@carbon/react/icons';
 import { ResponsiveWrapper } from '@openmrs/esm-framework';
 
@@ -83,10 +83,12 @@ const PriceField: React.FC<PriceFieldProps> = ({ field, index, control, removeSe
           name={`servicePrices.${index}.price`}
           control={control}
           render={({ field }) => (
-            <TextInput
+            <NumberInput
+              id={`servicePrices.${index}.price`}
               onChange={(e: { target: { value: string } }) => {
                 handleServicePrice(e, field);
               }}
+              onWheel={(e) => e.currentTarget.blur()}
               type="number"
               labelText={t('usCurrency', 'USD')}
               placeholder={t('enterPrice', 'Enter price')}

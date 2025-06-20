@@ -106,7 +106,7 @@ const Quotation: React.FC = () => {
       <div className={styles.actionArea}>
         <Button
           onClick={handlePrint}
-          kind="secondary"
+          kind="primary"
           size="sm"
           disabled={isPrinting}
           renderIcon={Printer}
@@ -116,7 +116,7 @@ const Quotation: React.FC = () => {
         </Button>
         <Button
           onClick={handleAcceptQuotation}
-          kind="secondary"
+          kind="danger"
           size="sm"
           renderIcon={BaggageClaim}
           iconDescription="Add"

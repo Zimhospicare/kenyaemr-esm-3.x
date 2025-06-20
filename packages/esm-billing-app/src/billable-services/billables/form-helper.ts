@@ -178,6 +178,11 @@ export const getBulkUploadPayloadFromExcelFile = (
             price: row.price ?? 0,
             name: 'Cash',
           },
+          {
+            paymentMode: paymentModes.find((mode) => mode.name === 'Insurance').uuid,
+            price: row.price ?? 0,
+            name: 'Insurance',
+          },
         ],
         serviceStatus: row.disable === 'false' ? 'ENABLED' : 'DISABLED',
         concept: row.concept_id,

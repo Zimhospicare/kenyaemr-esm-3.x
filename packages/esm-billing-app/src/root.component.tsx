@@ -25,7 +25,7 @@ const RootComponent: React.FC = () => {
         <Route path="/claims-overview" element={<ClaimsManagementOverview />} />
         <Route path="/preauth-requests" element={<ClaimsManagementPreAuthRequest />} />
         <Route
-          path="/quotation/:patientUuid/:billUuid"
+          path="/patient/:patientUuid/:billUuid/quotation"
           element={
             <ClockInBoundary>
               <Quotation />
@@ -33,7 +33,7 @@ const RootComponent: React.FC = () => {
           }
         />
         <Route
-          path="/invoice/:patientUuid/:billUuid"
+          path="/patient/:patientUuid/:billUuid/invoice"
           element={
             <ClockInBoundary>
               <Invoice />

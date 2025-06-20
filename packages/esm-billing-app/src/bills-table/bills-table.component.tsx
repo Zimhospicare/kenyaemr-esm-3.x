@@ -103,7 +103,7 @@ const BillsTable: React.FC<BillTableProps> = ({ defaultBillPaymentStatus = '' })
       '',
     );
 
-  const billingUrl = '${openmrsSpaBase}/home/billing/invoice/${patientUuid}/${uuid}';
+  const billingUrl = '${openmrsSpaBase}/home/billing/patient/${patientUuid}/${uuid}/invoice';
 
   const rowData = results?.map((bill, index) => ({
     id: `${index}`,

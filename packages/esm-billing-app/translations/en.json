@@ -130,7 +130,7 @@
   "filterTable": "Filter table",
   "finalDiagnosis": "Final Diagnosis",
   "formTitle": "Fill in the form details",
-  "generatedMessage": "The invoice has been electronically generated and is a valid document. It was created by {{userName}} on {{date}} at {{time}}",
+  "generatedMessage": "The {{billType}} has been electronically generated and is a valid document. It was created by {{userName}} on {{date}} at {{time}}",
   "hieVerificationFailure": "HIE verification failure",
   "home": "Home",
   "identifier": "Identifier",
